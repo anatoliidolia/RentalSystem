@@ -1,0 +1,20 @@
+#menu-peachcode-rentalsystem-rental:hover > a:before,
+#menu-peachcode-rentalsystem-rental > a:before,
+#menu-peachcode-rentalsystem-rental._active > a:before{
+    font-weight: 900;
+    color: peachpuff;
+    color: #eb5202;
+    content: '\P' !important;
+}
+
+.peach_code .title:before {
+    content: '\PeachCode' !important;
+    font-weight: 900;
+    color: #eb5202;
+    display: inline-block;
+}
+.peach_code .title {
+    strong{
+        display: none;
+    }
+}

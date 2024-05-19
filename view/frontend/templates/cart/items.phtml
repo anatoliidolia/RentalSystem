@@ -1,0 +1,249 @@
+<?php
+/** @var  $block View */
+
+/** @var $escaper Escaper */
+
+use Magento\Framework\Escaper;
+use Magento\Catalog\Model\Product;
+use PeachCode\RentalSystem\Block\Cart\View;
+
+$items = $block->getCartItems();
+
+if ($items && $items->getSize() > 0):?>
+    <div class="cart-items">
+        <table>
+            <thead>
+            <tr>
+                <th><?= $escaper->escapeHtml(__('Image')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Product Code')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Rental Price')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Name')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Quantity')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Start Date')); ?></th>
+                <th><?= $escaper->escapeHtml(__('End Date')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Discount')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Days')); ?></th>
+                <th><?= $escaper->escapeHtml(__('To Pay')); ?></th>
+                <th><?= $escaper->escapeHtml(__('Action')); ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($items as $item):
+
+                if (!$productID = $item->getProductId()) {
+                    continue;
+                }
+                /** @var $product Product */
+                $product = $block->getProductById($productID);
+
+                $productImage = $block->getImage($product,
+                    View::CATEGORY_PAGE_GRID); ?>
+
+                <tr id="rent_item_<?= $escaper->escapeHtml($item->getId()); ?>">
+                    <td>
+                        <div class="rent-image-holder">
+                            <?= /* @noEscape */
+                            $productImage->toHtml(); ?>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="<?= $escaper->escapeHtml($product->getProductUrl()) ?>"><?= $escaper->escapeHtml($product->getSku()); ?></a>
+                    </td>
+                    <td><?= $block->getRentPrice($product); ?></td>
+                    <td>
+                        <a href="<?= $escaper->escapeHtml($product->getProductUrl()) ?>"><?= $escaper->escapeHtml($product->getName()); ?>
+                    </td>
+                    <td><?= $escaper->escapeHtml(__('1')); ?></td>
+                    <td><?= $escaper->escapeHtml($item->getStartDate()); ?></td>
+                    <td><?= $escaper->escapeHtml($item->getEndDate()); ?></td>
+                    <td><?= $escaper->escapeHtml(__("%1 %",
+                            $item->getDiscount())); ?></td>
+                    <td><?= $escaper->escapeHtml($block->getFinalFullDays($item)); ?></td>
+                    <td><?= $escaper->escapeHtml($block->getFinalPrice($item)); ?></td>
+                    <td>
+                        <form class="hidden form form-rent"
+                              action="<?= $escaper->escapeHtml($block->getRemoveUrl()); ?>"
+                              method="POST" id="form-validate"
+                              enctype="multipart/form-data" autocomplete="off">
+                            <?= /* @noEscape */
+                            $block->getBlockHtml('formkey') ?>
+                            <label for="rent_item_id"></label>
+                            <input hidden name="rent_item_id" id="rent_item_id"
+                                   type="number"
+                                   value="<?= $escaper->escapeHtml($item->getId()); ?>"/>
+                            <button id="rent-button" type="submit"
+                                    class="action secondary"
+                                    value="<?= $escaper->escapeHtml(__('Remove')); ?>">
+                                <span><?= $escaper->escapeHtml(__('Remove')); ?></span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="rent-cart-form">
+        <form class="hidden form form-rent"
+              action="<?= $escaper->escapeHtml($block->getPostUrl()); ?>"
+              method="POST" id="form-validate" enctype="multipart/form-data"
+              autocomplete="off">
+            <?= $block->getBlockHtml('formkey') ?>
+
+            <fieldset class="fieldset">
+                <?php if ($stores = $block->prepareStorePickUp()): ?>
+                    <div class="field stores required">
+                        <label class="label"
+                               for="country"><span><?= $escaper->escapeHtml(__('Store Pickup Locations')); ?></span></label>
+                        <?php foreach ($stores as $store): ?>
+                            <div class="control">
+                                <input type="radio" name="stores"
+                                       value="<?= $escaper->escapeHtml($store['location']); ?>"
+                                       id="location_<?= $escaper->escapeHtml($store['location']); ?>"
+                                       class="input-radio validate-stores">
+                                <label
+                                    for="location_<?= $escaper->escapeHtml($store['location']); ?>">
+                                    <?= $escaper->escapeHtml($store['location']); ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <br>
+                <div class="field payment-methods required">
+                    <label class="label"
+                           for="country"><span><?= $escaper->escapeHtml(__('Payment')); ?></span></label>
+                    <div class="control">
+                        <label for="payment-method"></label>
+                        <input type="radio"
+                               name="payment"
+                               value="<?= $escaper->escapeHtml(__('Pay in store')); ?>"
+                               id="payment-method"
+                               class="input-radio payment-method">
+                        <label for="payment">
+                            <?= $escaper->escapeHtml(__('Pay in store')); ?>
+                        </label>
+                    </div>
+                </div>
+                <br>
+                <legend class="legend"><span>
+                        <?= $escaper->escapeHtml(__('Delivery Details')); ?></span>
+                </legend>
+                <br>
+                <?= $block->getBlockHtml('formkey') ?>
+                <div class="field name required">
+                    <label class="label"
+                           for="name"><span><?= $escaper->escapeHtml(__('Name')); ?></span></label>
+                    <div class="control">
+                        <input type="text" name="name" id="name"
+                               title="<?= $escaper->escapeHtml(__('Name')); ?>"
+                               class="input-text required">
+                    </div>
+                </div>
+                <div class="field telephone required">
+                    <label class="label"
+                           for="telephone"><span><?= $escaper->escapeHtml(__('Phone Number')); ?></span></label>
+                    <div class="control">
+                        <input type="text" name="telephone"
+                               title="<?= $escaper->escapeHtml(__('Phone Number')); ?>"
+                               class="input-text <?= $escaper->escapeHtml($this->helper('Magento\Customer\Helper\Address')
+                                   ->getAttributeValidationClass('telephone')) ?>"
+                               id="telephone">
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="fieldset">
+                <legend class="legend">
+                    <span><?= $escaper->escapeHtml(__('Address')); ?></span>
+                </legend>
+                <br>
+                <?php $streetValidationClass
+                    = $this->helper('Magento\Customer\Helper\Address')
+                    ->getAttributeValidationClass('street'); ?>
+                <div class="field street required">
+                    <label for="street_1"
+                           class="label"><span><?= $escaper->escapeHtml(__('Street Address')); ?></span></label>
+                    <div class="control">
+                        <input type="text" name="street[]"
+                               title="<?= $escaper->escapeHtml(__('Street Address')); ?>"
+                               id="street_1"
+                               class="input-text <?= $escaper->escapeHtml($streetValidationClass); ?>"/>
+                        <div class="nested">
+                            <?php $streetValidationClass
+                                = trim(str_replace('required-entry', '',
+                                $streetValidationClass)); ?>
+                            <?php for (
+                                $_i = 1, $_n
+                                    = $this->helper('Magento\Customer\Helper\Address')
+                                    ->getStreetLines(); $_i < $_n; $_i++
+                            ): ?>
+                                <div class="field additional">
+                                    <label class="label"
+                                           for="street_<?= $escaper->escapeHtml($_i
+                                               + 1); ?>">
+                                        <span><?= $escaper->escapeHtml(__('Street Address %1',
+                                                $_i + 1)); ?></span>
+                                    </label>
+                                    <div class="control">
+                                        <input type="text" name="street[]"
+                                               title="<?= $escaper->escapeHtml(__('Street Address %1',
+                                                   $_i + 1)); ?>"
+                                               id="street_<?= $escaper->escapeHtml($_i
+                                                   + 1); ?>"
+                                               class="input-text <?= $escaper->escapeHtml($streetValidationClass); ?>">
+                                    </div>
+                                </div>
+                            <?php endfor; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="field city required">
+                    <label class="label"
+                           for="city"><span><?= $escaper->escapeHtml(__('City')); ?></span></label>
+                    <div class="control">
+                        <input type="text" name="city"
+                               title="<?= $escaper->escapeHtml(__('City')); ?>"
+                               class="input-text <?= $escaper->escapeHtml($this->helper('Magento\Customer\Helper\Address')
+                                   ->getAttributeValidationClass('city')); ?>"
+                               id="city">
+                    </div>
+                </div>
+                <div class="field region required">
+                    <label class="label"
+                           for="region_id"><span><?= $escaper->escapeHtml(__('State/Province')); ?></span></label>
+                    <div class="control">
+                        <input type="text" id="region" name="region"
+                               title="<?= $escaper->escapeHtml(__('State/Province')); ?>"
+                               class="input-text <?= $escaper->escapeHtml($this->helper('Magento\Customer\Helper\Address')
+                                   ->getAttributeValidationClass('region')); ?>"/>
+                    </div>
+                </div>
+                <div class="field zip required">
+                    <label class="label"
+                           for="zip"><span><?= $escaper->escapeHtml(__('Postcode')); ?></span></label>
+                    <div class="control">
+                        <input type="text" name="postcode"
+                               title="<?= $escaper->escapeHtml(__('Postcode')); ?>"
+                               id="zip"
+                               class="input-text validate-zip-international <?= $escaper->escapeHtml($this->helper('Magento\Customer\Helper\Address')
+                                   ->getAttributeValidationClass('postcode')); ?>">
+                    </div>
+                </div>
+                <div class="field country required">
+                    <label class="label"
+                           for="country"><span><?= $escaper->escapeHtml(__('Country')); ?></span></label>
+                    <div class="control">
+                        <input type="text" name="country"
+                               title="<?= $escaper->escapeHtml(__('Country')); ?>"
+                               id="zip" class="input-text validate-country">
+                    </div>
+                </div>
+                <button type="submit" class="action primary"
+                        value="<?= $escaper->escapeHtml(__('Order now')); ?>">
+                    <span><?= $escaper->escapeHtml(__('Order now')); ?></span>
+                </button>
+        </form>
+    </div>
+<?php else: ?>
+    <p> <?= $escaper->escapeHtml(__('You have no items in your rent cart. ')); ?></p>
+<?php endif; ?>

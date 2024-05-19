@@ -1,0 +1,30 @@
+<!--@subject {{trans "Your Rent order confirmation" }} @-->
+<!--@vars {
+"layout handle=\"sales_email_rent_order_items\" order=$order area=\"frontend\"":"Order Items Grid",
+
+} @-->
+
+
+<table cellspacing="0" style="border-collapse: collapse;">
+    <tr class="rent-email-information">
+        <td>
+            <table class="rent-order-details">
+                <tr>
+                    <td class="address-details" style="padding-top: 20px;padding-bottom: 20px; padding-left: 25px;">
+                        <p>{{var address_html|raw}}</p>
+                    </td>
+                </tr>
+                <tr class="rent-email-summary" style="padding-top:40px;">
+                    <td>
+                        <p>{{trans 'Your Order <span class="no-link">#%increment_id</span>' increment_id=$order_id |raw}}<br />
+                            {{trans 'Placed on: <span class="no-link">%created_at</span>' created_at=$created_at |raw}}<br />
+                            {{trans 'Total : <span class="no-link">%total_summ</span>' total_summ=$total_summ |raw }}<br />
+                            {{trans 'Placed from: <span class="no-link">%customer_email</span>' customer_email=$customer_email |raw}}<br />
+                    </td>
+                </tr>
+            </table>
+            {{layout handle="sales_email_rent_order_items" order=$order area="frontend"}}
+        </td>
+    </tr>
+</table>
+

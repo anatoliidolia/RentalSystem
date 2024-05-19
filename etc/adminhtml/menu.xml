@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="PeachCode_RentalSystem::rental"
+             title="Rental System"
+             module="PeachCode_RentalSystem"
+             sortOrder="10"
+             resource="PeachCode_RentalSystem::rental" />
+        <add id="PeachCode_RentalSystem::orders"
+             title="Rental System"
+             module="PeachCode_RentalSystem"
+             sortOrder="20"
+             parent="PeachCode_RentalSystem::rental"
+             action="rental/orders"
+             resource="PeachCode_RentalSystem::rental" />
+        <add id="PeachCode_RentalSystem::system_config"
+             title="Configuration"
+             module="PeachCode_RentalSystem"
+             sortOrder="12"
+             parent="PeachCode_RentalSystem::rental"
+             action="adminhtml/system_config/edit/section/rental"
+             resource="PeachCode_RentalSystem::system_config" />
+    </menu>
+</config>

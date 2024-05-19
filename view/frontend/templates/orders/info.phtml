@@ -1,0 +1,38 @@
+<?php
+
+/** @var $block Info */
+/** @var $escaper Escaper */
+
+use PeachCode\RentalSystem\Block\Orders\Info;
+use Magento\Framework\Escaper;
+
+$_order = $block->getOrder(); ?>
+<div class="block block-order-details-view container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="block-title">
+                <strong>
+                    <?= $escaper->escapeHtml(__('Order Information'));?></strong>
+            </div>
+            <div class="block-content">
+                <div><?= $escaper->escapeHtml(__('Order #'));?>  <?= $escaper->escapeHtml( $_order->getId()); ?></div>
+                <div> <?= $escaper->escapeHtml(__('Created At:'));?> <?= $escaper->escapeHtml($block->formatDate($_order->getCreatedAt())); ?></div>
+                <div> <?= $escaper->escapeHtml(__('Total Items:'));?> <?= $escaper->escapeHtml($_order->getTotalItems()); ?></div>
+                <div> <?= $escaper->escapeHtml(__('Total Sum:'));?> <?= $escaper->escapeHtml($_order->getData('total_summ')); ?></div>
+                <div> <?= $escaper->escapeHtml(__('Customer Email:'));?> <?= $escaper->escapeHtml($_order->getData('customer_email')); ?></div>
+            </div>
+        </div>
+<br>
+        <div class="col-md-6">
+            <div class="block-title">
+                <strong>
+                    <?= $escaper->escapeHtml(__('Delivery Address'));?>
+                </strong>
+            </div>
+            <div class="block-content">
+                <div><?= $_order->getHtmlAddress() ?></div>
+            </div>
+        </div>
+    </div>
+
+</div>

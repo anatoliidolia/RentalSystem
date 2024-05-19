@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rental>
+            <cart>
+                <item_limit>5</item_limit>
+            </cart>
+            <product>
+                <rental_attribute>is_rent_available</rental_attribute>
+            </product>
+            <module>
+                <email>test@gmail.com</email>
+            </module>
+            <locations>
+                <is_enabled>0</is_enabled>
+            </locations>
+            <discount>
+                <percent_matrix>{"_1716051712054_54":{"start":"0","end":"0","discount":"0"}}</percent_matrix>
+            </discount>
+        </rental>
+    </default>
+</config>

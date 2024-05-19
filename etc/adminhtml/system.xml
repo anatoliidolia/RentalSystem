@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="PeachCode" translate="label" sortOrder="1" class="peach_code">
+            <label>PeachCode</label>
+        </tab>
+        <section id="rental" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Rental System Settings</label>
+            <tab>PeachCode</tab>
+            <resource>PeachCode_RentalSystem::rental</resource>
+            <group id="module" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Cart Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="email" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Send Email To:</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="cart" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Cart Settings</label>
+                <field id="item_limit" translate="label" type="text" sortOrder="3"  showInDefault="1">
+                    <label>Maximum Items in cart</label>
+                    <comment>Maximum Items in Rental cart.</comment>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+            <group id="product" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Product Settings</label>
+                <field id="rental_attribute" translate="label" type="select" sortOrder="1" showInDefault="1">
+                    <label>Rental Attribute</label>
+                    <source_model>PeachCode\RentalSystem\Model\Config\Backend\YesNoAttributes</source_model>
+                    <comment>Attribute to be used to determine if a rent is available. (Only Yes/No attributes allowed)</comment>
+                </field>
+            </group>
+            <group id="discount" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Discount Percent Settings</label>
+                <field id="percent_matrix" translate="label" type="select" sortOrder="1" showInDefault="1">
+                    <label>Discount Matrix Configuration</label>
+                    <frontend_model>PeachCode\RentalSystem\Block\Adminhtml\Menu\Field\PercentMatrix</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="locations" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <label>Pick Up Locations</label>
+                <field id="is_enabled" translate="label" type="select" sortOrder="1" showInDefault="1">
+                    <label>Store Pickup Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="stores" translate="label" type="select" sortOrder="1" showInDefault="1">
+                    <label>Store Pickup Locations</label>
+                    <frontend_model>PeachCode\RentalSystem\Block\Adminhtml\Menu\Field\TextFields</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <depends>
+                        <field id="is_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
+

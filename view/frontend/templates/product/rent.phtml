@@ -1,0 +1,40 @@
+<?php
+/** @var $block AddRent */
+/** @var $escaper Escaper */
+
+use PeachCode\RentalSystem\Block\Product\AddRent;
+use Magento\Framework\Escaper;
+
+$product = $block->getProduct();
+
+if($block->isRentAvailable($product)) : ?>
+
+<form class="form form-rent" action="<?= $escaper->escapeHtml($block->getAddRentUrl());?>" method="POST" id="form-validate"
+      enctype="multipart/form-data" autocomplete="off">
+    <?= $block->getBlockHtml('formkey') ?>
+    <label for="rent_price"><?= $escaper->escapeHtml(__('Rent Price: '));?><?= $block->getRentPrice($product);?></label>
+    <br>
+    <label for="rent_product_id"></label>
+    <input hidden type="number" value="<?= $escaper->escapeHtml($product->getId());?>" name="rent_product_id" id="rent_product_id" />
+<p class="start-date">
+        <label><?= $escaper->escapeHtml(__('Start Date :'));?> </label>
+        <input type="text" class="input-text data-picker" id="start_date" style="width: auto" name="start_date" />
+</p>
+    <p class="end-date">
+        <label><?= $escaper->escapeHtml(__('End Date : '));?></label>
+        <input type="text" class="input-text data-picker" id="end_date" style="width: auto" name="end_date" />
+    </p>
+
+    <button class="action secondary rentbutton" type="submit" title="<?= $escaper->escapeHtml(__('Add to Rent Cart'));?>">
+        <span><?= $escaper->escapeHtml(__('Rent Product'));?></span>
+    </button>
+</form>
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "calendar" : {}
+        }
+    }
+    </script>
+<?php endif; ?>

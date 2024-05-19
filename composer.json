@@ -1,0 +1,32 @@
+{
+    "name": "peachcode/rentalsystem",
+    "description": "RentalSystem(`Rent, Product Rent`) is a Magento 2 module that enables customers to rent products from your store. This module offers extensive rental management features for both the admin panel and storefront, allowing you to efficiently offer rental services.\n",
+    "keywords": ["magento", "magento2 extension", "magento 2 extension", "extension", "module", "magento2 module", "magento 2 module"],
+    "homepage": "https://github.com/anatoliidolia/RentalSystem",
+    "require": {
+        "php": "~8.1.0||~8.2.0"
+    },
+    "type": "magento2-module",
+    "minimum-stability": "dev",
+    "version": "1.0.0",
+    "prefer-stable": true,
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Anatolii Dolia",
+            "email": "doliaanatolii@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "PeachCode\\RentalSystem\\": ""
+        }
+    }
+}

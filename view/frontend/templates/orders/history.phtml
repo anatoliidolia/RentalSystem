@@ -1,0 +1,46 @@
+<?php
+/** @var $block History */
+/** @var $escaper Escaper */
+
+use PeachCode\RentalSystem\Block\Orders\History;
+use Magento\Framework\Escaper;
+
+$_orders = $block->getOrders(); ?>
+<?php if ($_orders && count($_orders)): ?>
+    <div class="table-wrapper orders-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $escaper->escapeHtml(__('Rent Orders'));?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $escaper->escapeHtml(__('Order #'));?></th>
+                    <th scope="col" class="col date"><?= $escaper->escapeHtml(__('Date'));?></th>
+                    <th scope="col" class="col total"><?= $escaper->escapeHtml(__('Total Quantity'));?></th>
+                    <th scope="col" class="col actions">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_orders as $_order): ?>
+                    <tr>
+                        <td data-th="<?= $escaper->escapeHtml(__('Order #'));?>" class="col id"><?= $escaper->escapeHtml($_order->getId()) ?></td>
+                        <td data-th="<?= $escaper->escapeHtml(__('Date'));?>" class="col date"><?= $escaper->escapeHtml($block->formatDate($_order->getCreatedAt())) ?></td>
+                        <td data-th="<?= $escaper->escapeHtml(__('Order Total'));?>" class="col total"><?= $escaper->escapeHtml($_order->getTotalItems()) ?></td>
+                        <td data-th="<?= $escaper->escapeHtml(__('Actions'));?>" class="col actions">
+                            <a href="<?= $escaper->escapeHtml($block->getViewUrl($_order)) ?>" class="action view">
+                                <span><?= $escaper->escapeHtml(__('Date'));?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty">
+        <span>
+            <?= $escaper->escapeHtml(__('You have placed no orders.'));?>
+        </span>
+    </div>
+<?php endif ?>

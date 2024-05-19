@@ -16,7 +16,7 @@ Features:
 1. Setting the rental price
 2. Defining the quantity available for rent
 3. Setting the maximum number of products a customer can add to their rental cart
-<img alt="img.png" src="img.png"/>
+<img alt="img.png" src="view/frontend/web/images/img.png"/>
 
 
 ### 3. Configure Discounts

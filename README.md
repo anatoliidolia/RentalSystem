@@ -165,4 +165,8 @@ If you have any questions or need further assistance, please feel free to contac
 ### Contact Details
 
 [Anatolii Dolia](mailto:doliaanatolii@gmail.com)<br>
-https://anatoliidolia.github.io/
+https://anatoliidolia.github.io/<br>
+
+**Magento 2.4.6**
+
+**Magento 2.4.7**

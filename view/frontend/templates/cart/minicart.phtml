@@ -4,9 +4,9 @@
 /** @var $escaper Escaper */
 
 use Magento\Framework\Escaper;
-use Magento\Catalog\Model\Product;
 use PeachCode\RentalSystem\Block\Cart\View;
 ?>
+<?php if($block->isActive()):?>
 <div class="minicart-rent">
     <a class="rent-link"
        href="<?= $escaper->escapeUrl($block->getViewUrl());?>">
@@ -14,3 +14,4 @@ use PeachCode\RentalSystem\Block\Cart\View;
     </a>
     <p class="rent-count"><?= $escaper->escapeHtml($block->getRentItemsCount())?></p>
 </div>
+<?php endif;?>

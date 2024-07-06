@@ -9,7 +9,9 @@
                 <rental_attribute>is_rent_available</rental_attribute>
             </product>
             <module>
+                <enabled>1</enabled>
                 <email>test@gmail.com</email>
+                <enabled_for_guest>0</enabled_for_guest>
             </module>
             <locations>
                 <is_enabled>0</is_enabled>

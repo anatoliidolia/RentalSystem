@@ -74,12 +74,22 @@ class AddRent extends View
     }
 
     /**
+     * Check is Rent module Available
+     *
      * @param Product $product
      *
      * @return mixed|null
      */
     public function isRentAvailable(Product $product): mixed
     {
+        /**
+         * Check is module enabled && check is module available gor guests
+         */
+        if(!$this->config->getRendEnabled() ||
+            (!$this->customerSession->isLoggedIn() && $this->config->getRendForGuest())){
+            return false;
+        }
+
         $attributeCode = $this->config->getRentAttribute();
         return $product->getData($attributeCode);
     }

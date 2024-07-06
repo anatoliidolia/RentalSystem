@@ -1,11 +1,12 @@
 <?php
-/** @var  $block View */
 
+/** @var  $block View */
 /** @var $escaper Escaper */
 
 use Magento\Framework\Escaper;
 use Magento\Catalog\Model\Product;
 use PeachCode\RentalSystem\Block\Cart\View;
+if($block->isActive()):
 
 $items = $block->getCartItems();
 
@@ -36,8 +37,7 @@ if ($items && $items->getSize() > 0):?>
                 /** @var $product Product */
                 $product = $block->getProductById($productID);
 
-                $productImage = $block->getImage($product,
-                    View::CATEGORY_PAGE_GRID); ?>
+                $productImage = $block->getImage($product, View::CATEGORY_PAGE_GRID); ?>
 
                 <tr id="rent_item_<?= $escaper->escapeHtml($item->getId()); ?>">
                     <td>
@@ -157,9 +157,7 @@ if ($items && $items->getSize() > 0):?>
                     <span><?= $escaper->escapeHtml(__('Address')); ?></span>
                 </legend>
                 <br>
-                <?php $streetValidationClass
-                    = $this->helper('Magento\Customer\Helper\Address')
-                    ->getAttributeValidationClass('street'); ?>
+                <?php $streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
                 <div class="field street required">
                     <label for="street_1"
                            class="label"><span><?= $escaper->escapeHtml(__('Street Address')); ?></span></label>
@@ -246,4 +244,5 @@ if ($items && $items->getSize() > 0):?>
     </div>
 <?php else: ?>
     <p> <?= $escaper->escapeHtml(__('You have no items in your rent cart. ')); ?></p>
+<?php endif; ?>
 <?php endif; ?>

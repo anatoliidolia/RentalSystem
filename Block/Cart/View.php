@@ -9,14 +9,12 @@ use Magento\Catalog\Block\Product\Image;
 use Magento\Catalog\Block\Product\ImageBuilder;
 use Magento\Catalog\Model\Product;
 use Magento\Customer\Model\Session;
-use Magento\Framework\DataObject;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use PeachCode\RentalSystem\Block\Product\AddRent;
 use PeachCode\RentalSystem\Logger\Logger;
-use PeachCode\RentalSystem\Model\Cart;
 use PeachCode\RentalSystem\Model\Cart\Item;
 use PeachCode\RentalSystem\Model\Config\Config;
 use PeachCode\RentalSystem\Model\ResourceModel\Cart\CollectionFactory;
@@ -28,6 +26,7 @@ class View extends Template
     public const CATEGORY_PAGE_GRID = 'category_page_grid';
 
     /**
+     * @param Item                       $item
      * @param SerializerInterface        $serializer
      * @param Config                     $config
      * @param AddRent                    $productAddRent
@@ -56,12 +55,15 @@ class View extends Template
     }
 
     /**
+     * Get Cart Items
+     *
      * @return Collection|null
      */
     public function getCartItems(
     ): ?Collection
     {
-        if (!$this->customerSession->isLoggedIn() || !($customerId = $this->customerSession->getCustomerId())
+        if (!$this->customerSession->isLoggedIn() ||
+            !($customerId = $this->customerSession->getCustomerId())
         ) {
             return null;
         }
@@ -74,6 +76,8 @@ class View extends Template
     }
 
     /**
+     * Get Product By ID
+     *
      * @param $productId
      *
      * @return ProductInterface|null
@@ -115,6 +119,16 @@ class View extends Template
             ->setImageId($imageId)
             ->setAttributes($attributes)
             ->create();
+    }
+
+    /**
+     * Check is mini cart active
+     *
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->config->getRendEnabled();
     }
 
     /**

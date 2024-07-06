@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
     <head>
-        <title>Your Rend Products Cart</title>
+        <title>Your Rent Products Cart</title>
         <css src="PeachCode_RentalSystem::css/rent-checkout-page.css" />
     </head>
     <body>

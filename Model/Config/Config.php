@@ -40,6 +40,26 @@ class Config
     }
 
     /**
+     * Check is Rend module enabled for Guest
+     *
+     * @return bool
+     */
+    public function getRendForGuest(): bool
+    {
+        return $this->scopeConfig->isSetFlag(ConfigInterface::XML_MODULE_STATUS_GUEST, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Check is Rend module enabled
+     *
+     * @return bool
+     */
+    public function getRendEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(ConfigInterface::XML_MODULE_STATUS, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
      * Get custom option
      *
      * @return mixed|int

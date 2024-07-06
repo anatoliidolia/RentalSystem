@@ -10,7 +10,7 @@ interface ItemRepositoryInterface
 {
 
     /**
-     * Get OneClickOrder object.
+     * Get Item object.
      *
      * @param int $entity_id
      * @return ItemInterface

@@ -22,17 +22,17 @@ class CartRepository implements ItemRepositoryInterface
     /**
      * @var ItemFactory
      */
-    private ItemFactory $oneClickOrderFactory;
+    private ItemFactory $itemFactory;
 
     /**
      * @param ResourceCartItem $resource
-     * @param ItemFactory       $oneClickOrderFactory
+     * @param ItemFactory       $itemFactory
      */
     public function __construct(
         ResourceCartItem $resource,
-        ItemFactory $oneClickOrderFactory
+        ItemFactory $itemFactory
     ) {
-        $this->oneClickOrderFactory = $oneClickOrderFactory;
+        $this->itemFactory = $itemFactory;
         $this->resource = $resource;
     }
 
@@ -46,10 +46,10 @@ class CartRepository implements ItemRepositoryInterface
      */
     public function get(int $entity_id): ItemInterface
     {
-        $object = $this->oneClickOrderFactory->create();
+        $object = $this->itemFactory->create();
         $this->resource->load($object, $entity_id);
         if (!$object->getId()) {
-            throw new NoSuchEntityException(__('OneClickOrder value with ID "%1" does not exist.', $entity_id));
+            throw new NoSuchEntityException(__('Item value with ID "%1" does not exist.', $entity_id));
         }
 
         return $object;

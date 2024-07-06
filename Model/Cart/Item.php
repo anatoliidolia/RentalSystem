@@ -12,6 +12,7 @@ use Magento\Framework\Registry;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface;
 use PeachCode\RentalSystem\Model\Cart;
 use PeachCode\RentalSystem\Model\ResourceModel\Cart\CollectionFactory;
+use PeachCode\RentalSystem\Model\ResourceModel\Cart\Item as ItemResource;
 
 class Item extends AbstractModel implements IdentityInterface
 {
@@ -36,7 +37,7 @@ class Item extends AbstractModel implements IdentityInterface
      */
     protected function _construct(): void
     {
-        $this->_init('PeachCode\RentalSystem\Model\ResourceModel\Cart\Item');
+        $this->_init(ItemResource::class);
     }
 
     /**

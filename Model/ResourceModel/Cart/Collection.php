@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace PeachCode\RentalSystem\Model\ResourceModel\Cart;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use PeachCode\RentalSystem\Model\ResourceModel\Cart;
+use PeachCode\RentalSystem\Model\Cart as CartModel;
 
 class Collection extends AbstractCollection
 {
@@ -12,6 +14,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct(): void
     {
-        $this->_init('PeachCode\RentalSystem\Model\Cart', 'PeachCode\RentalSystem\Model\ResourceModel\Cart');
+        $this->_init(CartModel::class, Cart::class);
     }
 }

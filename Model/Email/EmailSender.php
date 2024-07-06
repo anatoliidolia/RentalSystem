@@ -4,25 +4,20 @@ declare(strict_types=1);
 namespace PeachCode\RentalSystem\Model\Email;
 
 use DateTime;
-use DateTimeInterface;
-use DOMDocument;
 use Exception;
 use Magento\Framework\Exception\NoSuchEntityException;
 use PeachCode\RentalSystem\Model\Config\Config;
 use PeachCode\RentalSystem\Model\Order;
-use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\App\Helper\Context;
 use Magento\Framework\Mail\Template\TransportBuilder;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Store\Model\StoreManagerInterface;
-use PeachCode\RentalSystem\Model\Api\ConfigInterface;
 use PeachCode\RentalSystem\Logger\Logger;
 
 class EmailSender
 {
 
     /**
-     * @param Context               $context
+     * @param Logger                $logger
      * @param TransportBuilder      $transportBuilder
      * @param StoreManagerInterface $storeManager
      * @param TimezoneInterface     $localeDate
@@ -38,10 +33,12 @@ class EmailSender
     }
 
     /**
-     * @param $rentOrder Order
+     * TODO: need to configure email Template
+     *
+     * @param     $rentOrder Order
+     * @param int $finalPrice
      *
      * @return boolean
-     * @throws NoSuchEntityException
      */
     public function sendEmail(Order $rentOrder,int $finalPrice): bool
     {
@@ -99,19 +96,19 @@ class EmailSender
     /**
      * Retrieve formatting date
      *
-     * @param null|string|DateTime $date
+     * @param DateTime|string|null $date
      * @param int                  $format
      * @param bool                 $showTime
-     * @param null|string          $timezone
+     * @param string|null          $timezone
      *
      * @return string
      * @throws Exception
      */
     public function formatDate(
-        $date = null,
-        $format = \IntlDateFormatter::SHORT,
-        $showTime = false,
-        $timezone = null
+        DateTime|string $date = null,
+        int $format = \IntlDateFormatter::SHORT,
+        bool $showTime = false,
+        string $timezone = null
     ): string {
         $date =  new DateTime($date ?? '');
         return $this->localeDate->formatDateTime(

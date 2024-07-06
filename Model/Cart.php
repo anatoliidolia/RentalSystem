@@ -5,7 +5,6 @@ namespace PeachCode\RentalSystem\Model;
 
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
@@ -23,7 +22,7 @@ class Cart extends AbstractModel implements  IdentityInterface
      */
     protected function _construct(): void
     {
-        $this->_init('PeachCode\RentalSystem\Model\ResourceModel\Cart');
+        $this->_init(ResourceCart::class);
     }
 
     /**
@@ -40,6 +39,7 @@ class Cart extends AbstractModel implements  IdentityInterface
         Context $context,
         Registry $registry,
         private readonly ItemFactory $rentCartItemFactory,
+        private readonly \PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface $itemRepository,
         private readonly ResourceCart $resourceCart,
         private readonly CollectionFactory $rentCartItemCollectionFactory,
         private readonly Config $config,
@@ -64,6 +64,8 @@ class Cart extends AbstractModel implements  IdentityInterface
     }
 
     /**
+     * Add to rent cart Item
+     *
      * @param $productId
      * @param $startDate
      * @param $endDate
@@ -90,11 +92,7 @@ class Cart extends AbstractModel implements  IdentityInterface
         $cartItem->setDiscount($discountPercent);
         $cartItem->setProductId($productId);
 
-        // TODO: need to update ro repository
-        $cartItem->save();
-
-        // TODO: need to update ro repository
-        $this->save();
+        $this->itemRepository->save($cartItem);
     }
 
     /**

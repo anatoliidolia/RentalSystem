@@ -45,7 +45,7 @@ class Order extends AbstractModel implements  IdentityInterface
      */
     protected function _construct(): void
     {
-        $this->_init('PeachCode\RentalSystem\Model\ResourceModel\Order');
+        $this->_init(OrderResource::class);
     }
 
     /**

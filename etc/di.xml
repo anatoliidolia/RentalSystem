@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--  Logger Declaration  -->
     <type name="PeachCode\RentalSystem\Logger\Handler">
         <arguments>
             <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
@@ -14,4 +15,7 @@
             </argument>
         </arguments>
     </type>
+
+    <preference for="PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface"
+                type="PeachCode\RentalSystem\Model\CartRepository" />
 </config>

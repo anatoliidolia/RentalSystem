@@ -8,7 +8,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 class Order extends AbstractDb
 {
     public const TABLE_NAME = 'peach_code_rental_order';
-
     public const ORDER_ID = 'order_id';
 
     /**

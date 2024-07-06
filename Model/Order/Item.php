@@ -19,10 +19,11 @@ class Item extends AbstractModel implements IdentityInterface
 {
 
     /**
-     * @param Context $context
-     * @param Registry      $registry
-     * @param ProductRepositoryInterface       $productRepository
-     * @param array                            $data
+     * @param Context                    $context
+     * @param Registry                   $registry
+     * @param ProductRepositoryInterface $productRepository
+     * @param View                       $view
+     * @param array                      $data
      */
     public function __construct(
         Context $context,
@@ -49,21 +50,6 @@ class Item extends AbstractModel implements IdentityInterface
     public function getIdentities(): array
     {
         return [ConfigInterface::XML_ORDER_ITEM_CACHE_TAG . '_' . $this->getId()];
-    }
-
-    /**
-     * @param $id
-     *
-     * @return $this
-     * @throws NoSuchEntityException
-     */
-    public function loadById($id): static
-    {
-        $this->getResource()->load($this, $id);
-        if (!$this->getId()) {
-            throw new NoSuchEntityException(__('Unable to find rent cart item with ID "%1"', $id));
-        }
-        return $this;
     }
 
     /**

@@ -16,6 +16,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\Controller\ResultFactory;
 use PeachCode\RentalSystem\Logger\Logger;
+use PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface;
 use PeachCode\RentalSystem\Model\Cart\Item;
 use PeachCode\RentalSystem\Model\Cart\ItemFactory;
 use PeachCode\RentalSystem\Model\ResourceModel\Cart\CollectionFactory;
@@ -25,25 +26,23 @@ class Remove implements ActionInterface
 {
 
     /**
-     * @param Item              $item
-     * @param RequestInterface  $request
-     * @param ResultFactory     $resultFactory
-     * @param ManagerInterface  $messageManager
-     * @param RedirectInterface $redirect
-     * @param Logger            $logger
-     * @param ItemFactory       $rentCartItemFactory
-     * @param CollectionFactory $rentCartCollectionFactory
-     * @param Session           $customerSession
+     * @param ItemRepositoryInterface $itemRepository
+     * @param Item                    $item
+     * @param RequestInterface        $request
+     * @param ResultFactory           $resultFactory
+     * @param ManagerInterface        $messageManager
+     * @param RedirectInterface       $redirect
+     * @param Logger                  $logger
+     * @param Session                 $customerSession
      */
     public function __construct(
+        private readonly ItemRepositoryInterface $itemRepository,
         private readonly Item $item,
         private readonly RequestInterface $request,
         private readonly ResultFactory $resultFactory,
         private readonly ManagerInterface $messageManager,
         private readonly RedirectInterface $redirect,
         private readonly Logger $logger,
-        private readonly ItemFactory $rentCartItemFactory,
-        private readonly CollectionFactory $rentCartCollectionFactory,
         private readonly Session $customerSession
     ) {
     }
@@ -69,9 +68,7 @@ class Remove implements ActionInterface
 
             $cartItemId = (int)$post[ConfigInterface::XML_RENT_ITEM_ID];
 
-            $cartItem = $this->rentCartItemFactory->create();
-
-            $cartItem->loadById($cartItemId);
+            $cartItem = $this->itemRepository->get($cartItemId);
 
             $currentCart = $this->item->getCurrentCart($customerId);
 
@@ -83,7 +80,7 @@ class Remove implements ActionInterface
                 throw new LocalizedException(__('Not allowed.'));
             }
 
-            $cartItem->delete();
+            $this->itemRepository->deleteById($cartItemId);
 
             $this->messageManager->addSuccessMessage(__('Product removed from rent cart'));
 

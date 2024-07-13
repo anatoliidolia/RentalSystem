@@ -74,7 +74,7 @@ class Order extends AbstractModel implements  IdentityInterface
      * @return Order
      * @throws LocalizedException
      */
-    public function createFromCart(Cart $rentCart): static
+    public function createFromCart(Cart $rentCart): Order
     {
         if ($this->getId()) {
             throw new LocalizedException(__('Cannot overwrite order.'));
@@ -99,9 +99,9 @@ class Order extends AbstractModel implements  IdentityInterface
         $orderId = $this->getId();
 
         try {
+            $orderItem = $this->rentOrderItemFactory->create();
             //Add items
             foreach ($cartItems as $cartItem) {
-                $orderItem = $this->rentOrderItemFactory->create();
                 $orderItem->createFromCartItem($cartItem,$orderId);
             }
         }catch (\Exception $e){

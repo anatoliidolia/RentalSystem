@@ -8,6 +8,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Registry;
+use PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface;
 use PeachCode\RentalSystem\Model\Cart\ItemFactory;
 use PeachCode\RentalSystem\Model\Config\Config;
 use PeachCode\RentalSystem\Model\ResourceModel\Cart\Item\CollectionFactory;
@@ -39,8 +40,7 @@ class Cart extends AbstractModel implements  IdentityInterface
         Context $context,
         Registry $registry,
         private readonly ItemFactory $rentCartItemFactory,
-        private readonly \PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface $itemRepository,
-        private readonly ResourceCart $resourceCart,
+        private readonly ItemRepositoryInterface $itemRepository,
         private readonly CollectionFactory $rentCartItemCollectionFactory,
         private readonly Config $config,
         private readonly SerializerInterface $serializer,

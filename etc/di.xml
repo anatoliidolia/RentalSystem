@@ -16,6 +16,14 @@
         </arguments>
     </type>
 
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="rent_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
     <preference for="PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface"
                 type="PeachCode\RentalSystem\Model\CartRepository" />
 </config>

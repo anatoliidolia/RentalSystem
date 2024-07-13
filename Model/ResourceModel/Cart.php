@@ -17,24 +17,4 @@ class Cart extends AbstractDb
     {
         $this->_init(self::TABLE_NAME,self::CART_ID);
     }
-
-    public function load($object, $value, $field = null)
-    {
-        if ($field === null) {
-            $field = $this->getIdFieldName();
-        }
-
-        $connection = $this->getConnection();
-        $select = $connection->select()
-            ->from($this->getMainTable())
-            ->where($field . ' = ?', $value);
-
-        $data = $connection->fetchRow($select);
-
-        if ($data) {
-            $object->setData($data);
-        }
-
-        return $this;
-    }
 }

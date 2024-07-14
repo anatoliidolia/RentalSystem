@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PeachCode\RentalSystem\Controller\Adminhtml\Orders;
 
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\Page;
@@ -14,10 +15,12 @@ class Edit extends Grid
 {
 
     /**
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
+     * @param RequestInterface $request
+     * @param Context          $context
+     * @param PageFactory      $resultPageFactory
      */
     public function __construct(
+        private readonly RequestInterface $request,
         Context $context,
         private readonly PageFactory $resultPageFactory
     ) {
@@ -32,7 +35,9 @@ class Edit extends Grid
     public function execute(): Page|ResultInterface|ResponseInterface
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders - Edit order')));
+        $orderId = $this->request->getParam('entity_id');
+
+        $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders - Edit order %1', $orderId)));
 
         return $resultPage;
     }

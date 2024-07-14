@@ -1,0 +1,73 @@
+{
+    "peach_code_rental_cart": {
+        "column": {
+            "customer_id": true,
+            "created_at": true,
+            "updated_at": true,
+            "cart_id": true
+        },
+        "index": {
+            "PEACH_CODE_RENTAL_CART_CART_ID": true
+        }
+    },
+    "peach_code_rental_cart_item": {
+        "column": {
+            "cart_item_id": true,
+            "cart_id": true,
+            "product_id": true,
+            "start_date": true,
+            "end_date": true,
+            "full_days": true,
+            "rent_price": true,
+            "discount": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PEACH_CODE_RENTAL_CART_ITEM_CART_ITEM_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "peach_code_rental_order": {
+        "column": {
+            "order_id": true,
+            "customer_id": true,
+            "customer_email": true,
+            "total_items": true,
+            "html_address": true,
+            "total_summ": true,
+            "email_sent": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PEACH_CODE_RENTAL_ORDER_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "peach_code_rental_order_item": {
+        "column": {
+            "order_item_id": true,
+            "order_id": true,
+            "sku": true,
+            "discount": true,
+            "start_date": true,
+            "end_date": true,
+            "full_days": true,
+            "price": true,
+            "name": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "PEACH_CODE_RENTAL_ORDER_ITEM_ORDER_ITEM_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

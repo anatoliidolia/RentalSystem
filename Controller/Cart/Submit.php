@@ -19,7 +19,6 @@ use PeachCode\RentalSystem\Model\Cart\Item;
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\Controller\ResultFactory;
-use PeachCode\RentalSystem\Model\ResourceModel\Cart\CollectionFactory;
 use PeachCode\RentalSystem\Model\Product\StockValidator;
 use PeachCode\RentalSystem\Model\Email\EmailSender;
 
@@ -58,7 +57,6 @@ class Submit implements ActionInterface
         private readonly RedirectInterface $redirect,
         private readonly StockValidator $stockValidator,
         private readonly OrderFactory $rentOrderFactory,
-        private readonly CollectionFactory $rentCartCollectionFactory,
         private readonly Session $customerSession
     ) {
     }
@@ -76,9 +74,7 @@ class Submit implements ActionInterface
             throw new NotFoundException(__('Not Found.'));
         }
 
-        if (!$this->customerSession->isLoggedIn()
-            || !($customerId = $this->customerSession->getCustomerId())
-        ) {
+        if (!$this->customerSession->isLoggedIn() || !($customerId = $this->customerSession->getCustomerId())) {
             throw new LocalizedException(__('User not logged in.'));
         }
 
@@ -128,6 +124,7 @@ class Submit implements ActionInterface
         $order->setEmailSent($emailSent);
 
         $this->eventManager->dispatch('before_rent_order_save', [$customerId, $cart]);
+
         $order->save();
 
         $this->eventManager->dispatch('after_rent_order_save', [$customerId, $cart->getAllItems()]);

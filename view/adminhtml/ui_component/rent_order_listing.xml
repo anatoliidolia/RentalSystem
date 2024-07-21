@@ -1,3 +1,88 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" ?>
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">rent_order_listing.rent_orders_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>rent_order_log_columns</spinner>
+        <deps>
+            <dep>rent_order_listing.rent_orders_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="rent_orders_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>PeachCode_RentalSystem::system_config</aclResource>
+        <dataProvider name="rent_orders_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="rent_order_log_columns">
+        <column name="order_id" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order ID</label>
+            </settings>
+        </column>
+        <column name="customer_email" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Email</label>
+            </settings>
+        </column>
+        <column name="total_items" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Total Items</label>
+            </settings>
+        </column>
+        <column name="total_summ" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Total Summ</label>
+            </settings>
+        </column>
+        <column name="email_sent" sortOrder="70">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email Sent</label>
+            </settings>
+        </column>
+        <column name="created_at" sortOrder="50">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+        <column name="updated_at" sortOrder="60">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Updated At</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="PeachCode\RentalSystem\Ui\Component\Listing\Columns\Actions" sortOrder="90">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
 </listing>

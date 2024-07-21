@@ -11,6 +11,7 @@ use PeachCode\RentalSystem\Model\Cart\ItemFactory;
 use PeachCode\RentalSystem\Model\ResourceModel\Cart\Item as ResourceCartItem;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Exception\CouldNotDeleteException;
 
 class CartRepository implements ItemRepositoryInterface
 {
@@ -41,10 +42,10 @@ class CartRepository implements ItemRepositoryInterface
      *
      * @param int $entity_id
      *
-     * @return ItemInterface
+     * @return ItemInterface|Item
      * @throws NoSuchEntityException
      */
-    public function get(int $entity_id): ItemInterface
+    public function get(int $entity_id): ItemInterface|Item
     {
         $object = $this->itemFactory->create();
         $this->resource->load($object, $entity_id);
@@ -72,5 +73,47 @@ class CartRepository implements ItemRepositoryInterface
         }
 
         return $cartItemData;
+    }
+
+    /**
+     * Delete Information
+     *
+     * @param ItemInterface|Item $cartItemData
+     *
+     * @return bool
+     * @throws CouldNotDeleteException
+     * @throws NoSuchEntityException
+     */
+    public function delete(ItemInterface|Item $cartItemData): bool
+    {
+        try {
+            $this->resource->delete($cartItemData);
+        } catch (\Exception $exception) {
+            throw new NoSuchEntityException(__('Error: some data can not be deleted.', [
+                'exception' => $exception->getMessage(),
+                'item' => $cartItemData
+            ]));
+        }
+
+        return true;
+    }
+
+    /**
+     * Delete by ID
+     *
+     * @param int $entity_id
+     *
+     * @return bool
+     * @throws NoSuchEntityException
+     * @throws CouldNotDeleteException
+     */
+    public function deleteById(int $entity_id): bool
+    {
+        try {
+            $item = $this->get($entity_id);
+            return $this->delete($item);
+        } catch (NoSuchEntityException) {
+            throw new NoSuchEntityException(__('Error: some data can not be deleted.', $entity_id));
+        }
     }
 }

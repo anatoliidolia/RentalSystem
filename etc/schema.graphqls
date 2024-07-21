@@ -1,0 +1,15 @@
+type Query {
+    customerOrders(customerId: Int!): [RentalOrder] @resolver(class: "PeachCode\\RentalSystem\\Model\\Resolver\\Customer")
+}
+
+type RentalOrder {
+    order_id: Int
+    customer_id: Int
+    customer_email: String
+    total_items: Int
+    html_address: String
+    total_summ: String
+    email_sent: Boolean
+    created_at: String
+    updated_at: String
+}

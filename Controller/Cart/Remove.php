@@ -18,8 +18,6 @@ use Magento\Framework\Controller\ResultFactory;
 use PeachCode\RentalSystem\Logger\Logger;
 use PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface;
 use PeachCode\RentalSystem\Model\Cart\Item;
-use PeachCode\RentalSystem\Model\Cart\ItemFactory;
-use PeachCode\RentalSystem\Model\ResourceModel\Cart\CollectionFactory;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface;
 
 class Remove implements ActionInterface

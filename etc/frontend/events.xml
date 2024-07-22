@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="after_create_rent_order">
+        <observer name="after_create_rent_order_event_run" instance="PeachCode\RentalSystem\Observer\EmailSender" />
+    </event>
+</config>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PeachCode\RentalSystem\Controller\Order;
@@ -6,28 +7,28 @@ namespace PeachCode\RentalSystem\Controller\Order;
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Sales\Controller\AbstractController\OrderLoaderInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\Action\Context;
 use PeachCode\RentalSystem\Model\OrderFactory;
-use Magento\Framework\Registry;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\Controller\Result\Redirect;
-use PeachCode\RentalSystem\Model\Order;
+use Exception;
 
 class View extends Action
 {
     /**
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
+     * @param Context          $context
+     * @param RequestInterface $request
+     * @param Session          $customerSession
+     * @param OrderFactory     $orderFactory
+     * @param PageFactory      $resultPageFactory
      */
     public function __construct(
         Context $context,
         private readonly RequestInterface $request,
         private readonly Session $customerSession,
         private readonly OrderFactory $orderFactory,
-        private readonly Registry $coreRegistry,
         private readonly PageFactory $resultPageFactory
     ) {
         parent::__construct($context);
@@ -37,51 +38,51 @@ class View extends Action
      * Order view page
      *
      * @return ResultInterface
+     * @throws NoSuchEntityException
      */
-    public function execute()
+    public function execute(): ResultInterface
     {
         $result = $this->loadValidOrder();
         if ($result instanceof ResultInterface) {
             return $result;
         }
 
-        /** @var Page $resultPage */
-        $resultPage = $this->resultPageFactory->create();
-
-        return $resultPage;
+        return $this->resultPageFactory->create();
     }
 
     /**
      * Try to load valid order by $_POST or $_COOKIE
      *
-     * @param RequestInterface $request
      * @return Redirect|bool
+     * @throws NoSuchEntityException
      */
-    public function loadValidOrder()
+    public function loadValidOrder(): bool|Redirect
     {
         if (!$this->customerSession->isLoggedIn()) {
             return $this->resultRedirectFactory->create()->setPath('/');
         }
 
-        $params = $this->request->getParams();
+        try {
+            $params = $this->request->getParams();
 
-        /** @var $order Order */
-        $order = $this->orderFactory->create();
+            $order = $this->orderFactory->create();
 
-        if (!empty($params) && isset($params['rent_order_id'])) {
+            if (!empty($params) && isset($params['rent_order_id'])) {
 
-            $orderId = $params['rent_order_id'];
+                $orderId = $params['rent_order_id'];
 
-            $order = $order->loadById($orderId);
+                $order = $order->loadById($orderId);
 
-            if ($order->getId() && $order->getCustomerId() == $this->customerSession->getCustomerId()) {
-               // $this->coreRegistry->register('current_rent_order', $order);
-                return true;
+                if ($order->getId() && $order->getCustomerId() == $this->customerSession->getCustomerId()) {
+                    return true;
+                }
             }
+        } catch (Exception $e) {
+            $this->messageManager->addWarningMessage(__('Something went wrong.'));
+            return $this->resultRedirectFactory->create()->setPath('rent/order/history');
         }
 
-        $this->messageManager->addError(__('You entered incorrect data. Please try again.'));
+        $this->messageManager->addWarningMessage(__('Something went wrong.'));
         return $this->resultRedirectFactory->create()->setPath('rent/order/history');
     }
-
 }

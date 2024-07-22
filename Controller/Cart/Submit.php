@@ -112,6 +112,8 @@ class Submit implements ActionInterface
             throw new LocalizedException(__('Some rent product are no longer available. They were removed from your cart.'));
         }
 
+        $this->eventManager->dispatch('before_create_rent_order_from_cart', [$customerId, $cart]);
+
         $order = $this->createOrderFromCart($cart);
         $orderId = $order->getId();
 
@@ -119,22 +121,12 @@ class Submit implements ActionInterface
         $order->setTotalSumm($finalPrice);
         $order->save();
 
-        // TODO: move email sender to observer
-        $emailSent = $this->emailSender->sendEmail($order, $finalPrice);
-        $order->setEmailSent($emailSent);
-
-        $this->eventManager->dispatch('before_rent_order_save', [$customerId, $cart]);
-
-        $order->save();
-
-        $this->eventManager->dispatch('after_rent_order_save', [$customerId, $cart->getAllItems()]);
-
         //Delete cart after order is submitted
         $cart->delete();
 
-        $this->messageManager->addSuccessMessage(__("Your order was created (ID: $orderId). You can see your Rend order history in your account."));
+        $this->eventManager->dispatch('after_create_rent_order', ['customer_id' => $customerId, 'order' => $order]);
 
-        $this->eventManager->dispatch('after_submit_rent_cart', [$customerId, $order]);
+        $this->messageManager->addSuccessMessage(__("Your order was created (ID: $orderId). You can see your Rend order history in your account."));
 
         $resultRedirect->setUrl($this->redirect->getRefererUrl());
 

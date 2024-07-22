@@ -72,11 +72,11 @@ class Config
     /**
      * Get custom option
      *
-     * @return mixed|int
+     * @return bool
      */
-    public function getRentOrderEmail(): mixed
+    public function getRentOrderEmail(): bool
     {
-        return $this->scopeConfig->getValue(ConfigInterface::XML_RENTAL_EMAIL, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->isSetFlag(ConfigInterface::XML_RENTAL_EMAIL, ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -99,4 +99,33 @@ class Config
         return $this->scopeConfig->getValue(ConfigInterface::XML_STORE_LOCATOR_ADDRESS, ScopeInterface::SCOPE_STORE);
     }
 
+    /**
+     * Get custom option
+     *
+     * @return mixed
+     */
+    public function getRentOrderEmailTemplate(): mixed
+    {
+        return $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_TEMPLATE, ScopeInterface::SCOPE_STORE) ?? 'rental_module_template';
+    }
+
+    /**
+     * Get custom option
+     *
+     * @return mixed
+     */
+    public function getRentOrderEmailSender(): mixed
+    {
+        return $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_SENDER, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get custom option
+     *
+     * @return mixed
+     */
+    public function getRentOrderEmailSendTo(): mixed
+    {
+        return $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_SEND_TO, ScopeInterface::SCOPE_STORE);
+    }
 }

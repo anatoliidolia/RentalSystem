@@ -36,29 +36,27 @@ class EmailSender
      * TODO: need to configure email Template
      *
      * @param     $rentOrder Order
-     * @param int $finalPrice
      *
      * @return boolean
      */
-    public function sendEmail(Order $rentOrder,int $finalPrice): bool
+    public function sendEmail(Order $rentOrder): bool
     {
         try {
+            $isActive = $this->config->getRentOrderEmail();
 
-            $destinationEmail = $this->config->getRentOrderEmail();
+            if(!$isActive) return false;
 
-            if($destinationEmail == '') return false;
-
-            $templateVariables = $this->prepareVariables($rentOrder, $finalPrice);
+            $templateVariables = $this->prepareVariables($rentOrder);
 
             $customerEmail = $rentOrder->getCustomerEmail();
 
             $store = $this->storeManager->getStore()->getId();
-            $transport = $this->transportBuilder->setTemplateIdentifier('rent_order')
+            $transport = $this->transportBuilder->setTemplateIdentifier($this->config->getRentOrderEmailTemplate())
                 ->setTemplateOptions(['area' => 'frontend', 'store' => $store])
                 ->setTemplateVars($templateVariables)
                 ->setFrom('general')
                 ->addTo($customerEmail)
-                ->addBcc($destinationEmail)
+                ->addBcc($this->config->getRentOrderEmailSendTo())
                 ->getTransport();
 
             $transport->sendMessage();
@@ -71,13 +69,14 @@ class EmailSender
     }
 
     /**
+     * Prepare variables for email template
+     *
      * @param     $rentOrder Order
-     * @param int $finalPrice
      *
      * @return array
      * @throws NoSuchEntityException
      */
-    private function prepareVariables(Order $rentOrder, int $finalPrice): array
+    private function prepareVariables(Order $rentOrder): array
     {
 
         return [
@@ -85,7 +84,7 @@ class EmailSender
             'order_id'=> $rentOrder->getId(),
             'customer_email' => $rentOrder->getCustomerEmail(),
             'total_items' => $rentOrder->getTotalItems(),
-            'total_summ' => $finalPrice,
+            'total_summ' => $rentOrder->getTotalSumm(),
             'created_at' => $this->formatDate($rentOrder->getCreatedAt()),
             'address_html' => $rentOrder->getHtmlAddress(),
             'order' => $rentOrder,

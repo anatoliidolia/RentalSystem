@@ -15,9 +15,8 @@ class StockValidator{
      */
     public function __construct(
         private readonly Config $config,
-        private readonly  ProductRepositoryInterface $productRepository)
-    {
-    }
+        private readonly  ProductRepositoryInterface $productRepository
+    ) {}
 
     /**
      * Stock validator

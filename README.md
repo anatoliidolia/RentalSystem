@@ -157,6 +157,25 @@ Customer Account page:
 Rental Order Page:
 <img alt="img_6.png" src="view/frontend/web/images/img_6.png"/>
 
+# graphql:
+
+Query Example: 
+
+<pre>
+query {
+  customerOrders(customerId: 1) {
+    order_id
+    customer_id
+    customer_email
+    total_items
+    html_address
+    total_summ
+    email_sent
+    created_at
+    updated_at
+  }
+}
+</pre>
 
 ### Contact
 

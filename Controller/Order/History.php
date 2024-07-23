@@ -30,7 +30,6 @@ class History extends Action
      */
     public function execute()
     {
-        /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->set(__('My Rent Orders'));
 

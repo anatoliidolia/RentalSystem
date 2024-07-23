@@ -8,18 +8,18 @@ interface ConfigInterface
 {
     public const XML_CART_ITEM_LIMIT = 'rental/cart/item_limit';
     public const XML_MODULE_STATUS = 'rental/module/enabled';
-
     public const XML_MODULE_STATUS_GUEST = 'rental/module/enabled_for_guest';
     public const XML_PRODUCT_RENTAL_ATTRIBUTE = 'rental/product/rental_attribute';
     public const XML_RENTAL_DISCOUNT_MATRIX = 'rental/discount/percent_matrix';
-
     public const XML_RENTAL_EMAIL = 'rental/module/email';
+    public const XML_RENT_ORDER_SENDER = 'rental/module/email_sender';
+    public const XML_RENT_ORDER_SEND_TO = 'rental/module/email_to';
+    public const XML_RENT_ORDER_TEMPLATE = 'rental/module/template';
     public const XML_STORE_LOCATOR_STATUS = 'rental/locations/is_enabled';
     public const XML_STORE_LOCATOR_ADDRESS = 'rental/locations/stores';
     public const XML_RENT_ADD_URL = 'rent/cart/add';
     public const XML_RENT_REMOVE_URL = 'rent/cart/remove';
     public const XML_RENT_SUBMIT_URL = 'rent/cart/submit';
-
     public const XML_RENT_VIEW_URL = 'rent/cart/view';
     public const XML_RENT_PRODUCT_PRICE = 'base_rent_price';
     public const XML_CACHE_TAG = 'peach_code_rent_cart_item';

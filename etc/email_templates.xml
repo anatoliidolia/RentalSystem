@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
-    <template id="rent_order" label="Rent Order" file="rent_order.html" type="html" module="PeachCode_RentalSystem" area="frontend"/>
+    <template id="rental_module_template" label="Rent Order" file="rental_module_template.html" type="html" module="PeachCode_RentalSystem" area="frontend"/>
 </config>

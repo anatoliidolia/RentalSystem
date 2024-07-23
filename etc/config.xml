@@ -2,14 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <rental>
-            <cart>
-                <item_limit>5</item_limit>
-            </cart>
             <product>
                 <rental_attribute>is_rent_available</rental_attribute>
             </product>
             <module>
                 <enabled>1</enabled>
+                <item_limit>5</item_limit>
                 <enabled_for_guest>0</enabled_for_guest>
                 <email>1</email>
                 <email_to>test@gmail.com</email_to>

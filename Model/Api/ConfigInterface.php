@@ -6,7 +6,7 @@ namespace PeachCode\RentalSystem\Model\Api;
 
 interface ConfigInterface
 {
-    public const XML_CART_ITEM_LIMIT = 'rental/cart/item_limit';
+    public const XML_CART_ITEM_LIMIT = 'rental/module/item_limit';
     public const XML_MODULE_STATUS = 'rental/module/enabled';
     public const XML_MODULE_STATUS_GUEST = 'rental/module/enabled_for_guest';
     public const XML_PRODUCT_RENTAL_ATTRIBUTE = 'rental/product/rental_attribute';

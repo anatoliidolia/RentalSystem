@@ -126,7 +126,7 @@ class Submit implements ActionInterface
 
         $this->eventManager->dispatch('after_create_rent_order', ['customer_id' => $customerId, 'order' => $order]);
 
-        $this->messageManager->addSuccessMessage(__("Your order was created (ID: $orderId). You can see your Rend order history in your account."));
+        $this->messageManager->addSuccessMessage(__("Your order was created (ID: $orderId). You can see your Rent order history in your account."));
 
         $resultRedirect->setUrl($this->redirect->getRefererUrl());
 

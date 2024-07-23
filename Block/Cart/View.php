@@ -128,7 +128,7 @@ class View extends Template
      */
     public function isActive(): bool
     {
-        return $this->config->getRendEnabled();
+        return $this->config->getRentEnabled();
     }
 
     /**

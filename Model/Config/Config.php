@@ -40,21 +40,21 @@ class Config
     }
 
     /**
-     * Check is Rend module enabled for Guest
+     * Check is Rent module enabled for Guest
      *
      * @return bool
      */
-    public function getRendForGuest(): bool
+    public function getRentForGuest(): bool
     {
         return $this->scopeConfig->isSetFlag(ConfigInterface::XML_MODULE_STATUS_GUEST, ScopeInterface::SCOPE_STORE);
     }
 
     /**
-     * Check is Rend module enabled
+     * Check is Rent module enabled
      *
      * @return bool
      */
-    public function getRendEnabled(): bool
+    public function getRentEnabled(): bool
     {
         return $this->scopeConfig->isSetFlag(ConfigInterface::XML_MODULE_STATUS, ScopeInterface::SCOPE_STORE);
     }

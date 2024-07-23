@@ -53,9 +53,6 @@
                         <field id="enabled">1</field>
                     </depends>
                 </field>
-            </group>
-            <group id="cart" translate="label" type="text" sortOrder="1" showInDefault="1">
-                <label>Cart Settings</label>
                 <field id="item_limit" translate="label" type="text" sortOrder="3"  showInDefault="1">
                     <label>Maximum Items in cart</label>
                     <comment>Maximum Items in Rental cart.</comment>

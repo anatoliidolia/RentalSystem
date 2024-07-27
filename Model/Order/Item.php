@@ -63,7 +63,7 @@ class Item extends AbstractModel implements IdentityInterface
     public function createFromCartItem($cartItem, $orderId): static
     {
         /** @var $cartItem \PeachCode\RentalSystem\Model\Cart\Item */
-        if ($this->getId()) {
+        if (!$cartItem->getId()) {
             throw new LocalizedException(__('Cannot overwrite order.'));
         }
 

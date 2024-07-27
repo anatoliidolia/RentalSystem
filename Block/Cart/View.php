@@ -187,6 +187,25 @@ class View extends Template
     }
 
     /**
+     * Get full days value for GraphQL
+     *
+     * @param $startDate
+     * @param $endDate
+     *
+     * @return int
+     */
+    public function getFinalFullDaysGraphQl($startDate, $endDate): int
+    {
+        $startDateObj = strtotime($startDate);
+        $endDateObj = strtotime($endDate);
+        $dateDiff = $endDateObj - $startDateObj;
+
+        $days = intval($dateDiff / (60 * 60 * 24));
+
+        return !$days ? 1 : $days;
+    }
+
+    /**
      * Prepare view Url
      *
      * @return string

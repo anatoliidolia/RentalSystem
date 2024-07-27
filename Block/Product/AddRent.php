@@ -85,9 +85,8 @@ class AddRent extends View
         /**
          * Check is module enabled && check is module available gor guests
          */
-        if(!$this->config->getRentEnabled() ||
-            (!$this->customerSession->isLoggedIn() && $this->config->getRentForGuest())){
-            return false;
+        if(!$this->config->getRentEnabled() && !$this->customerSession->isLoggedIn()) {
+             return false;
         }
 
         $attributeCode = $this->config->getRentAttribute();

@@ -1,10 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace PeachCode\RentalSystem\Model\Config;
 
-use Magento\Framework\App\Helper\AbstractHelper;
-use Magento\Framework\App\Helper\Context;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface;

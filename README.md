@@ -191,6 +191,65 @@ query {
 }
 </pre>
 
+How to add item to cart:
+1. Query
+<pre>
+mutation {
+  addRentProductToCart(input: {
+    productId: 1
+    customerId: 1
+    endDate: "2024-07-28 00:00:00" 
+    startDate: "2024-07-27 00:00:00"
+  }) {
+  cartId
+  endDate
+  startDate
+  }
+}
+</pre>
+
+2. Request
+<pre>
+{
+  "data": {
+    "addRentProductToCart": {
+      "cartId": 1,
+      "endDate": "2024-07-28 00:00:00",
+      "startDate": "2024-07-27 00:00:00"
+    }
+  }
+}
+</pre>
+
+
+
+How to place order?
+1. Query
+<pre>
+mutation {
+  createRentOrderFromCart(input: {
+    cartId: 2
+    customerId: 1
+    htmlAddress: "second data"
+  }) {
+    customerId
+    orderId
+  }
+}
+</pre>
+2. Request
+<pre>
+{
+  "data": {
+    "createRentOrderFromCart": {
+      "customerId": 1,
+      "orderId": 1
+    }
+  }
+}
+</pre>
+
+
 ### Contact
 
 If you have any questions or need further assistance, please feel free to contact me through my account or email. I would be happy to assist you.

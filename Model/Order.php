@@ -96,13 +96,11 @@ class Order extends AbstractModel implements  IdentityInterface
 
         $this->save();
 
-        $orderId = $this->getId();
-
         try {
             $orderItem = $this->rentOrderItemFactory->create();
             //Add items
             foreach ($cartItems as $cartItem) {
-                $orderItem->createFromCartItem($cartItem,$orderId);
+                $orderItem->createFromCartItem($cartItem, $this->getId());
             }
         }catch (\Exception $e){
             //Deleting order if items were unsuccessful

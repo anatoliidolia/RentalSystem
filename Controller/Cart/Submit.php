@@ -11,8 +11,7 @@ use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Message\ManagerInterface;
 use PeachCode\RentalSystem\Model\Cart;
-use PeachCode\RentalSystem\Model\Order;
-use PeachCode\RentalSystem\Model\OrderFactory;
+use PeachCode\RentalSystem\Model\Order\CreateOrder;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Magento\Framework\Exception\LocalizedException;
 use PeachCode\RentalSystem\Model\Cart\Item;
@@ -20,7 +19,6 @@ use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\Controller\ResultFactory;
 use PeachCode\RentalSystem\Model\Product\StockValidator;
-use PeachCode\RentalSystem\Model\Email\EmailSender;
 
 class Submit implements ActionInterface
 {
@@ -47,17 +45,27 @@ class Submit implements ActionInterface
             "stores",
         ];
 
+    /**
+     * @param Item                  $item
+     * @param EventManagerInterface $eventManager
+     * @param RequestInterface      $request
+     * @param ResultFactory         $resultFactory
+     * @param ManagerInterface      $messageManager
+     * @param RedirectInterface     $redirect
+     * @param StockValidator        $stockValidator
+     * @param Session               $customerSession
+     * @param CreateOrder           $createOrder
+     */
     public function __construct(
         private readonly Item $item,
         private readonly EventManagerInterface $eventManager,
-        private readonly EmailSender $emailSender,
         private readonly RequestInterface $request,
         private readonly ResultFactory $resultFactory,
         private readonly ManagerInterface $messageManager,
         private readonly RedirectInterface $redirect,
         private readonly StockValidator $stockValidator,
-        private readonly OrderFactory $rentOrderFactory,
-        private readonly Session $customerSession
+        private readonly Session $customerSession,
+        private readonly CreateOrder $createOrder
     ) {
     }
 
@@ -100,7 +108,7 @@ class Submit implements ActionInterface
         $interceptionFlag = false;
         $finalPrice = 0;
         foreach ($cart->getAllItems() as $item) {
-            $finalPrice = $finalPrice + $this->getFinalPrice($item);
+            $finalPrice = $finalPrice + $this->createOrder->getFinalPrice($item);
 
             if (!$this->stockValidator->checkIfRentIsAvailable($item->getProductId())) {
                 $interceptionFlag = true;
@@ -114,7 +122,7 @@ class Submit implements ActionInterface
 
         $this->eventManager->dispatch('before_create_rent_order_from_cart', [$customerId, $cart]);
 
-        $order = $this->createOrderFromCart($cart);
+        $order = $this->createOrder->createOrderFromCart($cart);
         $orderId = $order->getId();
 
         $order->setHtmlAddress($addressValue);
@@ -131,18 +139,6 @@ class Submit implements ActionInterface
         $resultRedirect->setUrl($this->redirect->getRefererUrl());
 
         return $resultRedirect;
-    }
-
-    /**
-     * @throws LocalizedException
-     */
-    private function createOrderFromCart($cart): Order
-    {
-        $order = $this->rentOrderFactory->create();
-
-        $order->createFromCart($cart);
-
-        return $order;
     }
 
     /**
@@ -250,40 +246,5 @@ class Submit implements ActionInterface
         }
 
         return $newRows;
-    }
-
-    /**
-     * Get final price
-     *
-     * @param $item
-     *
-     * @return int
-     */
-    private function getFinalPrice($item): int
-    {
-        $finalPrice = ($this->getFinalFullDays($item) * (int)$item->getData('rent_price'));
-        $amountToSubtract = ($item->getDiscount() / 100) * $finalPrice;
-
-        $finalPrice = $finalPrice - $amountToSubtract;
-
-        return (int)$finalPrice;
-    }
-
-    /**
-     * Get full days value
-     *
-     * @param $item
-     *
-     * @return int
-     */
-    public function getFinalFullDays($item): int
-    {
-        $startDate = strtotime($item->getStartDate());
-        $endDate = strtotime($item->getEndDate());
-        $dateDiff = $endDate - $startDate;
-
-        $days = intval($dateDiff / (60 * 60 * 24));
-
-        return !$days ? 1 : $days;
     }
 }

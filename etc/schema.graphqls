@@ -13,3 +13,34 @@ type RentalOrder {
     created_at: String
     updated_at: String
 }
+
+
+type Mutation {
+    addRentProductToCart(input: addRentProductToCartInput!): RentProductToCart @resolver(class: "PeachCode\\RentalSystem\\Model\\Resolver\\AddToCart")
+    createRentOrderFromCart(input: createOrderFromCartInput!): RentProductToOrder @resolver(class: "PeachCode\\RentalSystem\\Model\\Resolver\\CreateOrder")
+}
+
+input addRentProductToCartInput {
+    productId: Int!
+    customerId: Int!
+    endDate: String!
+    startDate: String!
+}
+
+type RentProductToCart {
+    cartId: Int!
+    endDate: String!
+    startDate: String!
+}
+
+
+input createOrderFromCartInput {
+    cartId: Int!
+    customerId: Int!
+    htmlAddress: String!
+}
+
+type RentProductToOrder {
+    customerId: Int!
+    orderId: Int!
+}

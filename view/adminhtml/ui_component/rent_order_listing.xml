@@ -14,15 +14,15 @@
     <dataSource name="rent_orders_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
-                <param name="indexField" xsi:type="string">id</param>
+                <param name="indexField" xsi:type="string">order_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>PeachCode_RentalSystem::system_config</aclResource>
         <dataProvider name="rent_orders_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
             <settings>
-                <requestFieldName>id</requestFieldName>
-                <primaryFieldName>id</primaryFieldName>
+                <requestFieldName>order_id</requestFieldName>
+                <primaryFieldName>order_id</primaryFieldName>
             </settings>
         </dataProvider>
     </dataSource>

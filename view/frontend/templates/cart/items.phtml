@@ -16,7 +16,6 @@ if ($items && $items->getSize() > 0):?>
             <thead>
             <tr>
                 <th><?= $escaper->escapeHtml(__('Image')); ?></th>
-                <th><?= $escaper->escapeHtml(__('Product Code')); ?></th>
                 <th><?= $escaper->escapeHtml(__('Rental Price')); ?></th>
                 <th><?= $escaper->escapeHtml(__('Name')); ?></th>
                 <th><?= $escaper->escapeHtml(__('Quantity')); ?></th>
@@ -45,9 +44,6 @@ if ($items && $items->getSize() > 0):?>
                             <?= /* @noEscape */
                             $productImage->toHtml(); ?>
                         </div>
-                    </td>
-                    <td>
-                        <a href="<?= $escaper->escapeHtml($product->getProductUrl()) ?>"><?= $escaper->escapeHtml($product->getSku()); ?></a>
                     </td>
                     <td><?= $block->getRentPrice($product); ?></td>
                     <td>
@@ -79,6 +75,21 @@ if ($items && $items->getSize() > 0):?>
                         </form>
                     </td>
                 </tr>
+                <td>
+                    <?php if ($item->getSourceId()):
+                    $address = $block->getSourceAddressById($item->getSourceId()); ?>
+
+                        <p><?= $escaper->escapeHtml(__("Name: ")); ?><?= $escaper->escapeHtml($address['name']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("Frontend Name: ")); ?><?= $escaper->escapeHtml($address['frontend_name']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("Country: ")); ?><?= $escaper->escapeHtml($address['country_id']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("Region: ")); ?> <?= $escaper->escapeHtml($address['region']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("City: ")); ?> <?= $escaper->escapeHtml($address['city']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("Street: ")); ?> <?= $escaper->escapeHtml($address['street']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("Postcode: ")); ?> <?= $escaper->escapeHtml($address['postcode']); ?></p>
+                        <p><?= $escaper->escapeHtml(__("Phone: ")); ?> <?= $escaper->escapeHtml($address['phone']); ?></p>
+
+                 <?php endif; ?>
+                </td>
             <?php endforeach; ?>
             </tbody>
         </table>
@@ -152,6 +163,8 @@ if ($items && $items->getSize() > 0):?>
                     </div>
                 </div>
             </fieldset>
+            <?php
+            if (!$item->getSourceId()):?>
             <fieldset class="fieldset">
                 <legend class="legend">
                     <span><?= $escaper->escapeHtml(__('Address')); ?></span>
@@ -236,11 +249,13 @@ if ($items && $items->getSize() > 0):?>
                                id="zip" class="input-text validate-country">
                     </div>
                 </div>
-                <button type="submit" class="action primary"
-                        value="<?= $escaper->escapeHtml(__('Order now')); ?>">
-                    <span><?= $escaper->escapeHtml(__('Order now')); ?></span>
-                </button>
         </form>
+            <?php endif;?>
+
+        <button type="submit" class="action primary"
+                value="<?= $escaper->escapeHtml(__('Order now')); ?>">
+            <span><?= $escaper->escapeHtml(__('Order now')); ?></span>
+        </button>
     </div>
 <?php else: ?>
     <p> <?= $escaper->escapeHtml(__('You have no items in your rent cart. ')); ?></p>

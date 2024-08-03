@@ -38,6 +38,11 @@ class Config
         return $this->scopeConfig->getValue(ConfigInterface::XML_PRODUCT_RENTAL_ATTRIBUTE, ScopeInterface::SCOPE_STORE);
     }
 
+    public function isSourcesEnabled(): bool
+    {
+        return $this->scopeConfig->isSetFlag(ConfigInterface::XML_MODULE_SOURCES_ENABLED, ScopeInterface::SCOPE_STORE);
+    }
+
     /**
      * Check is Rent module enabled for Guest
      *

@@ -9,30 +9,19 @@ use Magento\Catalog\Block\Product\View;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ProductTypes\ConfigInterface;
 use Magento\Customer\Model\Session;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Locale\FormatInterface;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
 use Magento\Framework\Stdlib\StringUtils;
 use Magento\Framework\Url\EncoderInterface;
+use Magento\InventoryApi\Api\Data\SourceItemInterface;
+use Magento\InventoryApi\Api\SourceItemRepositoryInterface;
 use PeachCode\RentalSystem\Model\Config\Config;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface as RentalApiConfigInterface;
 
 class AddRent extends View
 {
 
-    /**
-     * @param Context                                  $context
-     * @param EncoderInterface                         $urlEncoder
-     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
-     * @param StringUtils                              $string
-     * @param \Magento\Catalog\Helper\Product          $productHelper
-     * @param ConfigInterface                          $productTypeConfig
-     * @param FormatInterface                          $localeFormat
-     * @param Session                                  $customerSession
-     * @param ProductRepositoryInterface               $productRepository
-     * @param PriceCurrencyInterface                   $priceCurrency
-     * @param Config                                   $config
-     * @param array                                    $data
-     */
     public function __construct(
         Context $context,
         EncoderInterface $urlEncoder,
@@ -44,6 +33,8 @@ class AddRent extends View
         Session $customerSession,
         ProductRepositoryInterface $productRepository,
         PriceCurrencyInterface $priceCurrency,
+        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
+        private readonly SourceItemRepositoryInterface $sourceItemRepository,
         private readonly Config $config,
         array $data = []
     ) {
@@ -108,5 +99,32 @@ class AddRent extends View
             );
         }
         return '';
+    }
+
+    /**
+     * Check is Sources enabled for FE
+     *
+     * @return bool
+     */
+    public function isSourcesEnabled(): bool{
+        return $this->config->isSourcesEnabled();
+    }
+
+    /**
+     * Get Sources list
+     *
+     * @param string $productSku
+     *
+     * @return SourceItemInterface[]
+     */
+    public function getAllProductSources(string $productSku): array
+    {
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->addFilter('sku', $productSku)
+            ->addFilter('quantity', 0, 'gt')
+            ->addFilter('status', 1)
+            ->create();
+        $sourceItemData = $this->sourceItemRepository->getList($searchCriteria);
+        return $sourceItemData->getItems();
     }
 }

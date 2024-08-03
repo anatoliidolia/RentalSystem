@@ -83,6 +83,8 @@ class Add implements ActionInterface
              */
             $this->eventManager->dispatch('before_add_rent_product', [$post, $customerId]);
 
+            $sourceId = $post[ConfigInterface::SOURCE_ID] ?? '';
+
             $productId = (int)$post[ConfigInterface::PRODUCT_ID_FROM_TEMPLATE] ?? '';
             $startDate = $post[ConfigInterface::RENT_DATE_START] ?? '';
             $endDate = $post[ConfigInterface::RENT_DATE_END] ?? '';
@@ -100,7 +102,7 @@ class Add implements ActionInterface
             $cart = $this->getCurrentCart($customerId);
 
             /** @var $cart Cart */
-            $cart->addCartItem($productId, $startDate, $endDate, $rentPrice);
+            $cart->addCartItem($productId, $startDate, $endDate, $rentPrice, $sourceId);
 
             $this->messageManager->addSuccessMessage(__('Product added to rent cart'));
 

@@ -35,7 +35,7 @@ class Submit implements ActionInterface
     /**
      * @var array|string[]
      */
-    private array $allAddressFields = [
+    private array $allAddressFieldsFull = [
             "name",
             "telephone",
             "street",
@@ -44,6 +44,19 @@ class Submit implements ActionInterface
             "postcode",
             "stores",
         ];
+
+    /**
+     * @var array|string[]
+     */
+    private array $allAddressFields = [];
+
+    /**
+     * @var array|string[]
+     */
+    private array $allAddressFieldsPath = [
+        "name",
+        "telephone"
+    ];
 
     /**
      * @param Item                  $item
@@ -65,7 +78,8 @@ class Submit implements ActionInterface
         private readonly RedirectInterface $redirect,
         private readonly StockValidator $stockValidator,
         private readonly Session $customerSession,
-        private readonly CreateOrder $createOrder
+        private readonly CreateOrder $createOrder,
+        private readonly \PeachCode\RentalSystem\Model\Config\Config $config
     ) {
     }
 
@@ -142,6 +156,8 @@ class Submit implements ActionInterface
     }
 
     /**
+     * Validate address and convert data to string
+     *
      * @throws LocalizedException
      */
     private function validateAndStringifyAddress($post): bool|string
@@ -152,6 +168,12 @@ class Submit implements ActionInterface
         }
 
         $errors = [];
+
+        if($this->config->isSourcesEnabled()){
+            $this->allAddressFields = $this->allAddressFieldsPath;
+        } else {
+            $this->allAddressFields = $this->allAddressFieldsFull;
+        }
 
         $addressData = array_fill_keys($this->allAddressFields, '');
 

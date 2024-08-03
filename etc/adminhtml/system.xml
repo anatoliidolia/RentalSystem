@@ -10,7 +10,7 @@
             <resource>PeachCode_RentalSystem::rental</resource>
             <group id="module" translate="label" type="text" sortOrder="1" showInDefault="1">
                 <label>Cart Settings</label>
-                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
@@ -69,15 +69,24 @@
             </group>
             <group id="locations" translate="label" type="text" sortOrder="2" showInDefault="1">
                 <label>Pick Up Locations</label>
+                <field id="by_source" translate="label" type="select" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Set Shipping address by Source</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
                 <field id="is_enabled" translate="label" type="select" sortOrder="1" showInDefault="1">
                     <label>Store Pickup Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="by_source">0</field>
+                    </depends>
                 </field>
                 <field id="stores" translate="label" type="select" sortOrder="1" showInDefault="1">
                     <label>Store Pickup Locations</label>
                     <frontend_model>PeachCode\RentalSystem\Block\Adminhtml\Menu\Field\TextFields</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                     <depends>
+                        <field id="by_source">0</field>
                         <field id="is_enabled">1</field>
                     </depends>
                 </field>

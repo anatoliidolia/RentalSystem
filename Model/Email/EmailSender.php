@@ -33,7 +33,7 @@ class EmailSender
     }
 
     /**
-     * TODO: need to configure email Template
+     * Email sender
      *
      * @param     $rentOrder Order
      *

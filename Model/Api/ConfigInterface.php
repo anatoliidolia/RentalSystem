@@ -9,6 +9,7 @@ interface ConfigInterface
     public const XML_CART_ITEM_LIMIT = 'rental/module/item_limit';
     public const XML_MODULE_STATUS = 'rental/module/enabled';
     public const XML_MODULE_STATUS_GUEST = 'rental/module/enabled_for_guest';
+    public const XML_MODULE_SOURCES_ENABLED = 'rental/locations/by_source';
     public const XML_PRODUCT_RENTAL_ATTRIBUTE = 'rental/product/rental_attribute';
     public const XML_RENTAL_DISCOUNT_MATRIX = 'rental/discount/percent_matrix';
     public const XML_RENTAL_EMAIL = 'rental/module/email';
@@ -28,6 +29,8 @@ interface ConfigInterface
     public const XML_ORDER_ITEM_CACHE_TAG = 'peach_code_rent_order_item';
     public const XML_RENT_ITEM_ID = 'rent_item_id';
     public const PRODUCT_ID_FROM_TEMPLATE = 'rent_product_id';
+
+    public const SOURCE_ID = 'available_source';
     public const RENT_DATE_START = 'start_date';
     public const RENT_DATE_END = 'end_date';
 }

@@ -16,6 +16,7 @@
             </module>
             <locations>
                 <is_enabled>0</is_enabled>
+                <by_source>0</by_source>
             </locations>
             <discount>
                 <percent_matrix>{"_1716051712054_54":{"start":"0","end":"0","discount":"0"}}</percent_matrix>

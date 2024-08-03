@@ -18,6 +18,7 @@
         <column xsi:type="timestamp" name="start_date" nullable="false" comment="Rent Start Date"/>
         <column xsi:type="timestamp" name="end_date" nullable="false" comment="Rent End Date"/>
         <column xsi:type="int" name="full_days" nullable="false" comment="Days"/>
+        <column xsi:type="text" name="source_id" nullable="true" comment="Source Id"/>
         <column xsi:type="text" name="rent_price" nullable="false" comment="Product Rent Price"/>
         <column xsi:type="int" name="discount" nullable="false" comment="Rent Discount Percent"/>
         <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
@@ -55,6 +56,7 @@
         <column xsi:type="text" name="discount" nullable="false" comment="Product discount"/>
         <column xsi:type="text" name="start_date" nullable="false" comment="Start Date"/>
         <column xsi:type="text" name="end_date" nullable="false" comment="End Date"/>
+        <column xsi:type="text" name="source_id" nullable="true" comment="Source Id"/>
         <column xsi:type="int" name="full_days" nullable="false" comment="Days"/>
         <column xsi:type="text" name="price" nullable="false" comment="Product SKU"/>
         <column xsi:type="text" name="name" nullable="false" comment="Product Name"/>

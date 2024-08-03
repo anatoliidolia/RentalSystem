@@ -26,7 +26,7 @@ $_orders = $block->getOrders(); ?>
                         <td data-th="<?= $escaper->escapeHtml(__('Order Total'));?>" class="col total"><?= $escaper->escapeHtml($_order->getTotalItems()) ?></td>
                         <td data-th="<?= $escaper->escapeHtml(__('Actions'));?>" class="col actions">
                             <a href="<?= $escaper->escapeHtml($block->getViewUrl($_order)) ?>" class="action view">
-                                <span><?= $escaper->escapeHtml(__('Date'));?></span>
+                                <span><?= $escaper->escapeHtml(__('View'));?></span>
                             </a>
                         </td>
                     </tr>

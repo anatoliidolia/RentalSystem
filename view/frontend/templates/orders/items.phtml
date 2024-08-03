@@ -19,6 +19,7 @@ $_order = $block->getOrder() ?>
                 <th class="col days"><?= $escaper->escapeHtml(__('Days'));?></th>
                 <th class="col discount"><?= $escaper->escapeHtml(__('Discount'));?></th>
                 <th class="col full-price"><?= $escaper->escapeHtml(__('Price'));?></th>
+                <th class="col source"><?= $escaper->escapeHtml(__('Source Id'));?></th>
             </tr>
         </thead>
         <?php
@@ -41,6 +42,7 @@ $_order = $block->getOrder() ?>
                         <td class="col days"><?= $escaper->escapeHtml(__('%1 days',$elapsed)); ?></td>
                         <td class="col days"><?= $escaper->escapeHtml(__('%1 %',$_item->getDiscount())); ?></td>
                         <td class="col full-price"><?= $block->convertValue($_item->getFullDays() * $_item->getPrice()); ?></td>
+                        <td class="col sku"><?= $escaper->escapeHtml($_item->getSourceId()) ?></td>
                     </tr>
             </tbody>
         <?php endforeach; ?>

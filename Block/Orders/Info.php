@@ -45,7 +45,7 @@ class Info extends Template
      * @return Order
      * @throws NoSuchEntityException
      */
-    public function getOrder()
+    public function getOrder(): Order
     {
         $orderId = $this->request->getParams('rent_order_id');
         return $this->order->loadById($orderId);
@@ -58,7 +58,8 @@ class Info extends Template
      *
      * @return string
      */
-    public function convertValue(int $value = 0): string{
+    public function convertValue(int $value = 0): string
+    {
         return $this->priceCurrency->format($value);
     }
 }

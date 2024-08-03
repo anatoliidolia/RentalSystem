@@ -11,6 +11,7 @@ use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Message\ManagerInterface;
 use PeachCode\RentalSystem\Model\Cart;
+use PeachCode\RentalSystem\Model\Config\Config;
 use PeachCode\RentalSystem\Model\Order\CreateOrder;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -48,11 +49,6 @@ class Submit implements ActionInterface
     /**
      * @var array|string[]
      */
-    private array $allAddressFields = [];
-
-    /**
-     * @var array|string[]
-     */
     private array $allAddressFieldsPath = [
         "name",
         "telephone"
@@ -68,6 +64,7 @@ class Submit implements ActionInterface
      * @param StockValidator        $stockValidator
      * @param Session               $customerSession
      * @param CreateOrder           $createOrder
+     * @param Config                $config
      */
     public function __construct(
         private readonly Item $item,
@@ -79,9 +76,8 @@ class Submit implements ActionInterface
         private readonly StockValidator $stockValidator,
         private readonly Session $customerSession,
         private readonly CreateOrder $createOrder,
-        private readonly \PeachCode\RentalSystem\Model\Config\Config $config
-    ) {
-    }
+        private readonly Config $config
+    ) {}
 
     /**
      * @return ResultInterface|ResponseInterface|Redirect
@@ -170,14 +166,14 @@ class Submit implements ActionInterface
         $errors = [];
 
         if($this->config->isSourcesEnabled()){
-            $this->allAddressFields = $this->allAddressFieldsPath;
+            $allAddressFields = $this->allAddressFieldsPath;
         } else {
-            $this->allAddressFields = $this->allAddressFieldsFull;
+            $allAddressFields = $this->allAddressFieldsFull;
         }
 
-        $addressData = array_fill_keys($this->allAddressFields, '');
+        $addressData = array_fill_keys($allAddressFields, '');
 
-        foreach ($this->allAddressFields as $addressField) {
+        foreach ($allAddressFields as $addressField) {
 
             if (!isset($post[$addressField]) || $post[$addressField] == '' || !$this->arrayValidator($post[$addressField])
             ) {

@@ -22,6 +22,22 @@ use PeachCode\RentalSystem\Model\Api\ConfigInterface as RentalApiConfigInterface
 class AddRent extends View
 {
 
+    /**
+     * @param Context                                  $context
+     * @param EncoderInterface                         $urlEncoder
+     * @param \Magento\Framework\Json\EncoderInterface $jsonEncoder
+     * @param StringUtils                              $string
+     * @param \Magento\Catalog\Helper\Product          $productHelper
+     * @param ConfigInterface                          $productTypeConfig
+     * @param FormatInterface                          $localeFormat
+     * @param Session                                  $customerSession
+     * @param ProductRepositoryInterface               $productRepository
+     * @param PriceCurrencyInterface                   $priceCurrency
+     * @param SearchCriteriaBuilder                    $searchCriteriaBuilder
+     * @param SourceItemRepositoryInterface            $sourceItemRepository
+     * @param Config                                   $config
+     * @param array                                    $data
+     */
     public function __construct(
         Context $context,
         EncoderInterface $urlEncoder,

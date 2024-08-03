@@ -227,20 +227,27 @@ class View extends Template
         return $this->serializer->unserialize($this->config->getStoreLocatorAddress());
     }
 
-
-    public function getSourceAddressById(string $sourceId)
+    /**
+     * Prepare address info
+     *
+     * @param string $sourceId
+     *
+     * @return array
+     * @throws NoSuchEntityException
+     */
+    public function getSourceAddressById(string $sourceId): array
     {
         $address =  $this->sourceItemRepository->get($sourceId);
 
        return [
-           'name' => $address->getName(),
-           'frontend_name' => $address->getDescription(),
-           'country_id' => $address->getCountryId(),
-           'region' => $address->getRegion(),
-           'city' => $address->getCity(),
-           'street' => $address->getStreet(),
-           'postcode' => $address->getPostcode(),
-           'phone' => $address->getPhone(),
+           'name' => $address->getName() ?? '',
+           'frontend_name' => $address->getDescription() ?? '',
+           'country_id' => $address->getCountryId() ?? '',
+           'region' => $address->getRegion() ?? '',
+           'city' => $address->getCity() ?? '',
+           'street' => $address->getStreet() ?? '',
+           'postcode' => $address->getPostcode() ?? '',
+           'phone' => $address->getPhone() ?? '',
         ];
     }
 }

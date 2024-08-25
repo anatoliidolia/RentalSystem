@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="sources" sortOrder="5" component="Magento_InventoryCatalogAdminUi/js/product/form/source-items">
+       <dynamicRows name="assigned_sources" component="Magento_Ui/js/dynamic-rows/dynamic-rows-grid" template="ui/dynamic-rows/templates/grid" sortOrder="20">
+            <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+             <field name="quantity_rent" component="Magento_InventoryCatalogAdminUi/js/product/form/sources/qty" formElement="input" sortOrder="60">
+                    <settings>
+                        <dataType>text</dataType>
+                        <dataScope>quantity_rent</dataScope>
+                        <label translate="true">Rent Qty Per Store</label>
+                        <validation>
+                            <rule name="required-entry" xsi:type="boolean">true</rule>
+                            <rule name="less-than-equals-to" xsi:type="number">99999999</rule>
+                            <rule name="validate-number" xsi:type="boolean">true</rule>
+                        </validation>
+                        <disabled>true</disabled>
+                        <imports>
+                            <link name="disabled">!${ $.provider }:data.product.stock_data.manage_stock</link>
+                            <link name="setDefaultValue">${$.provider}:data.product.stock_data.is_qty_decimal</link>
+                            <link name="handleChanges">${$.provider}:data.product.stock_data.is_qty_decimal</link>
+                        </imports>
+                    </settings>
+                </field>
+            </container>
+        </dynamicRows>
+    </fieldset>
+</form>

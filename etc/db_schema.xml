@@ -69,4 +69,19 @@
             <column name="order_item_id"/>
         </index>
     </table>
+
+    <!-- General Table !-->
+    <table name="cataloginventory_stock_item" resource="default" engine="innodb" comment="Cataloginventory Stock Item">
+        <column xsi:type="decimal" name="quantity_rent" scale="4" precision="12" unsigned="false" nullable="true" comment="Qty"/>
+    </table>
+
+    <table name="cataloginventory_stock_status" resource="default" engine="innodb"
+           comment="Cataloginventory Stock Status">
+         <column xsi:type="decimal" name="quantity_rent" scale="4" precision="12" unsigned="false" nullable="false" default="0"
+            comment="Qty"/>
+    </table>
+    <table name="inventory_source_item" resource="default" engine="innodb">
+         <column xsi:type="decimal" name="quantity_rent" scale="4" precision="12" unsigned="false" nullable="false"
+            default="0"/>
+    </table>
 </schema>

@@ -165,10 +165,10 @@ class Submit implements ActionInterface
 
         $errors = [];
 
+        $allAddressFields = $this->allAddressFieldsFull;
+
         if($this->config->isSourcesEnabled()){
             $allAddressFields = $this->allAddressFieldsPath;
-        } else {
-            $allAddressFields = $this->allAddressFieldsFull;
         }
 
         $addressData = array_fill_keys($allAddressFields, '');
@@ -204,11 +204,11 @@ class Submit implements ActionInterface
 
         foreach ($addressData as $addrField => $addressDatum) {
 
+            $rowValue = $addressDatum;
+
             if (is_array($addressDatum)) {
                 $addressDatum = $this->removeEmptyRows($addressDatum);
                 $rowValue = implode("<br/>", $addressDatum);
-            } else {
-                $rowValue = $addressDatum;
             }
 
             if ($addrField == 'telephone') {

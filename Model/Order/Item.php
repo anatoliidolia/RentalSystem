@@ -14,6 +14,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Catalog\Api\Data\ProductInterface;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface;
 use PeachCode\RentalSystem\Block\Cart\View;
+use PeachCode\RentalSystem\Model\Config\Config;
 
 class Item extends AbstractModel implements IdentityInterface
 {
@@ -26,6 +27,7 @@ class Item extends AbstractModel implements IdentityInterface
      * @param array                      $data
      */
     public function __construct(
+        private readonly Config $config,
         Context $context,
         Registry $registry,
         private readonly ProductRepositoryInterface $productRepository,
@@ -67,6 +69,8 @@ class Item extends AbstractModel implements IdentityInterface
             throw new LocalizedException(__('Cannot overwrite order.'));
         }
 
+        $sourceId = $cartItem->getData('source_id') ?? '';
+
         $this->setOrderId($orderId);
 
         $product = $this->productRepository->getById($cartItem->getProductId());
@@ -75,7 +79,7 @@ class Item extends AbstractModel implements IdentityInterface
 
         $this->setDiscount($cartItem->getData('discount'));
         $this->setStartDate($cartItem->getData('start_date'));
-        $this->setSourceId($cartItem->getData('source_id') ?? '');
+        $this->setSourceId($sourceId);
         $this->setEndDate($cartItem->getData('end_date'));
         $this->setFullDays($this->view->getFinalFullDays($cartItem));
 
@@ -90,10 +94,21 @@ class Item extends AbstractModel implements IdentityInterface
 
         $this->save();
 
+        // here I need to check is MSI configuration enabled for module
+
+        if($this->config->isSourcesEnabled()){
+
+            $sourceUpdate = $sourceId;
+            //  reduce item qty from selected warehouse
+
+            return $this;
+        }
+
         /**
          * Update product rent SKU
          */
         $rentQty = $product->getCustomAttribute('rent_qty')->getValue();
+        // TODO: need to update this - now always we removed only 1 item
         $product->setCustomAttribute('rent_qty', $rentQty - 1);
         $this->productRepository->save($product);
 

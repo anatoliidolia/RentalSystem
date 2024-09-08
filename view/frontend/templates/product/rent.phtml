@@ -1,12 +1,13 @@
 <?php
 /** @var $block AddRent */
-
 /** @var $escaper Escaper */
 
 use PeachCode\RentalSystem\Block\Product\AddRent;
 use Magento\Framework\Escaper;
 
 $product = $block->getProduct();
+
+
 
 if ($block->isRentAvailable($product)) : ?>
 
@@ -15,8 +16,17 @@ if ($block->isRentAvailable($product)) : ?>
           method="POST" id="form-validate"
           enctype="multipart/form-data" autocomplete="off">
         <?= $block->getBlockHtml('formkey') ?>
-        <label
-            for="rent_price"><?= $escaper->escapeHtml(__('Rent Price per day: ')); ?><?= $block->getRentPrice($product); ?></label>
+
+        <?php if($block->isSourcesEnabled()):?>
+        <label for="source_value"><p class="sources-list"><?= $escaper->escapeHtml(__('Available Sources'))?></p></label>
+        <select id="available_source" name="available_source">
+        <?php foreach ($block->getAllProductSources($product->getSku()) as $source) :?>
+            <option value="<?= $escaper->escapeHtml($source['source_code']);?>"><?= $escaper->escapeHtml($source['source_code'])?></option>
+        <?php endforeach;?>
+         </select>
+        <?php endif;?>
+
+        <label for="rent_price"><?= $escaper->escapeHtml(__('Rent Price per day: ')); ?><?= $block->getRentPrice($product); ?></label>
         <br>
         <label for="rent_product_id"></label>
         <input hidden type="number"

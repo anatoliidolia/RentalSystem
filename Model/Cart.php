@@ -74,7 +74,7 @@ class Cart extends AbstractModel implements  IdentityInterface
      * @return void
      * @throws LocalizedException
      */
-    public function addCartItem($productId, $startDate, $endDate, $rentPrice): void
+    public function addCartItem($productId, $startDate, $endDate, $rentPrice, $sourceId = null): void
     {
         if($this->getAllItems()->getSize() == $this->getCartItemsLimit()){
             throw new LocalizedException(__("Rent cart is full."));
@@ -86,6 +86,7 @@ class Cart extends AbstractModel implements  IdentityInterface
 
         $cartItem->setCartId($this->getId());
         $cartItem->setStartDate($startDate);
+        $cartItem->setSourceId($sourceId);
         $cartItem->setEndDate($endDate);
         $cartItem->setFullDays($this->getFinalFullDays($startDate, $endDate));
         $cartItem->setRentPrice($rentPrice);

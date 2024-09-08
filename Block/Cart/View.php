@@ -12,12 +12,11 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Framework\View\Element\Template;
-use Magento\Framework\View\Element\Template\Context;
+use Magento\InventoryApi\Api\SourceRepositoryInterface;
 use PeachCode\RentalSystem\Block\Product\AddRent;
 use PeachCode\RentalSystem\Logger\Logger;
 use PeachCode\RentalSystem\Model\Cart\Item;
 use PeachCode\RentalSystem\Model\Config\Config;
-use PeachCode\RentalSystem\Model\ResourceModel\Cart\CollectionFactory;
 use PeachCode\RentalSystem\Model\ResourceModel\Cart\Item\Collection;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface as RentalApiConfigInterface;
 
@@ -25,28 +24,16 @@ class View extends Template
 {
     public const CATEGORY_PAGE_GRID = 'category_page_grid';
 
-    /**
-     * @param Item                       $item
-     * @param SerializerInterface        $serializer
-     * @param Config                     $config
-     * @param AddRent                    $productAddRent
-     * @param Context                    $context
-     * @param Logger                     $logger
-     * @param Session                    $customerSession
-     * @param CollectionFactory          $rentCartCollectionFactory
-     * @param ProductRepositoryInterface $productRepository
-     * @param ImageBuilder               $imageBuilder
-     * @param array                      $data
-     */
+
     public function __construct(
         private readonly Item $item,
         private readonly SerializerInterface $serializer,
         private readonly Config $config,
         private readonly AddRent $productAddRent,
         private readonly Template\Context $context,
+        private readonly SourceRepositoryInterface $sourceItemRepository,
         private readonly Logger $logger,
         private readonly Session $customerSession,
-        private readonly CollectionFactory $rentCartCollectionFactory,
         private readonly ProductRepositoryInterface $productRepository,
         private readonly ImageBuilder $imageBuilder,
         array $data = []
@@ -59,8 +46,7 @@ class View extends Template
      *
      * @return Collection|null
      */
-    public function getCartItems(
-    ): ?Collection
+    public function getCartItems(): ?Collection
     {
         if (!$this->customerSession->isLoggedIn() ||
             !($customerId = $this->customerSession->getCustomerId())
@@ -239,5 +225,29 @@ class View extends Template
         }
 
         return $this->serializer->unserialize($this->config->getStoreLocatorAddress());
+    }
+
+    /**
+     * Prepare address info
+     *
+     * @param string $sourceId
+     *
+     * @return array
+     * @throws NoSuchEntityException
+     */
+    public function getSourceAddressById(string $sourceId): array
+    {
+        $address =  $this->sourceItemRepository->get($sourceId);
+
+       return [
+           'name' => $address->getName() ?? '',
+           'frontend_name' => $address->getDescription() ?? '',
+           'country_id' => $address->getCountryId() ?? '',
+           'region' => $address->getRegion() ?? '',
+           'city' => $address->getCity() ?? '',
+           'street' => $address->getStreet() ?? '',
+           'postcode' => $address->getPostcode() ?? '',
+           'phone' => $address->getPhone() ?? '',
+        ];
     }
 }

@@ -11,6 +11,7 @@ use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Message\ManagerInterface;
 use PeachCode\RentalSystem\Model\Cart;
+use PeachCode\RentalSystem\Model\Config\Config;
 use PeachCode\RentalSystem\Model\Order\CreateOrder;
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -35,7 +36,7 @@ class Submit implements ActionInterface
     /**
      * @var array|string[]
      */
-    private array $allAddressFields = [
+    private array $allAddressFieldsFull = [
             "name",
             "telephone",
             "street",
@@ -44,6 +45,14 @@ class Submit implements ActionInterface
             "postcode",
             "stores",
         ];
+
+    /**
+     * @var array|string[]
+     */
+    private array $allAddressFieldsPath = [
+        "name",
+        "telephone"
+    ];
 
     /**
      * @param Item                  $item
@@ -55,6 +64,7 @@ class Submit implements ActionInterface
      * @param StockValidator        $stockValidator
      * @param Session               $customerSession
      * @param CreateOrder           $createOrder
+     * @param Config                $config
      */
     public function __construct(
         private readonly Item $item,
@@ -65,9 +75,9 @@ class Submit implements ActionInterface
         private readonly RedirectInterface $redirect,
         private readonly StockValidator $stockValidator,
         private readonly Session $customerSession,
-        private readonly CreateOrder $createOrder
-    ) {
-    }
+        private readonly CreateOrder $createOrder,
+        private readonly Config $config
+    ) {}
 
     /**
      * @return ResultInterface|ResponseInterface|Redirect
@@ -142,6 +152,8 @@ class Submit implements ActionInterface
     }
 
     /**
+     * Validate address and convert data to string
+     *
      * @throws LocalizedException
      */
     private function validateAndStringifyAddress($post): bool|string
@@ -153,9 +165,15 @@ class Submit implements ActionInterface
 
         $errors = [];
 
-        $addressData = array_fill_keys($this->allAddressFields, '');
+        if($this->config->isSourcesEnabled()){
+            $allAddressFields = $this->allAddressFieldsPath;
+        } else {
+            $allAddressFields = $this->allAddressFieldsFull;
+        }
 
-        foreach ($this->allAddressFields as $addressField) {
+        $addressData = array_fill_keys($allAddressFields, '');
+
+        foreach ($allAddressFields as $addressField) {
 
             if (!isset($post[$addressField]) || $post[$addressField] == '' || !$this->arrayValidator($post[$addressField])
             ) {

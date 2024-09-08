@@ -75,6 +75,7 @@ class Item extends AbstractModel implements IdentityInterface
 
         $this->setDiscount($cartItem->getData('discount'));
         $this->setStartDate($cartItem->getData('start_date'));
+        $this->setSourceId($cartItem->getData('source_id') ?? '');
         $this->setEndDate($cartItem->getData('end_date'));
         $this->setFullDays($this->view->getFinalFullDays($cartItem));
 

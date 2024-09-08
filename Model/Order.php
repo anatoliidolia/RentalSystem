@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace PeachCode\RentalSystem\Model;
 
+use Exception;
 use Magento\Customer\Model\ResourceModel\CustomerRepository;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -102,7 +103,7 @@ class Order extends AbstractModel implements  IdentityInterface
             foreach ($cartItems as $cartItem) {
                 $orderItem->createFromCartItem($cartItem, $this->getId());
             }
-        }catch (\Exception $e){
+        }catch (Exception $e){
             //Deleting order if items were unsuccessful
             $this->delete();
             throw new LocalizedException(__($e->getMessage()));

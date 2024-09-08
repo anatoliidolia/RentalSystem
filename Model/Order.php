@@ -85,6 +85,7 @@ class Order extends AbstractModel implements  IdentityInterface
 
         $this->setCustomerId($customer->getId());
         $this->setCustomerEmail($customer->getEmail());
+        $this->setStatus('pending');
 
 
         $cartItems = $rentCart->getAllItems();

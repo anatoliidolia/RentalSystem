@@ -65,22 +65,20 @@ In the free version of the module, admins cannot view orders directly from the a
 We are continuously working to improve PeachCode_RentalSystem. Here are some upcoming features and improvements:
 
 1: **Admin Panel:**
-1.1 Enable view for created orders
-1.2 Allow editing of order details from the admin panel
-1.3 Provide order filtering capabilities in the admin panel
+1.1 Allow editing of order details from the admin panel
 
 2: **User:**
 2.1 Allow users to view a page with all products available for rent
 A separate page with all products
 
-3: **API:**
-3.1 Implement the ability not only to view created orders but also to create new ones via API (GraphQL, REST)
+3: **Customer Data:**
+3.1 Display the rental cart via Private Content
 
-4: **Customer Data:**
-4.1 Display the rental cart via Private Content
+4: **Rent Checkout (Front):**
+4.1 Need to add  payment capabilities directly on the checkout page
 
-5: **Rent Checkout (Front):**
-5.1 Need to add  payment capabilities directly on the checkout page
+5: **MSI attribute:**
+5.1 Need to add rent qty for sources
 
 
 ## Installation

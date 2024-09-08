@@ -20,6 +20,9 @@
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="rent_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\Collection</item>
+                <item name="rent_active_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\ActiveCollection</item>
+                <item name="rent_pending_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\PendingCollection</item>
+                <item name="rent_closed_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\ClosedCollection</item>
             </argument>
         </arguments>
     </type>

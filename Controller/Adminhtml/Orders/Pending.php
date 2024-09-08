@@ -10,7 +10,7 @@ use Magento\Framework\View\Result\Page;
 use Magento\Framework\Controller\ResultInterface;
 use PeachCode\RentalSystem\Controller\Adminhtml\Grid;
 
-class Index extends Grid
+class Pending extends Grid
 {
 
     /**
@@ -32,7 +32,7 @@ class Index extends Grid
     public function execute(): Page|ResultInterface|ResponseInterface
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend((__('Rental System - All Orders')));
+        $resultPage->getConfig()->getTitle()->prepend((__('Rental System - Pending Orders')));
 
         return $resultPage;
     }

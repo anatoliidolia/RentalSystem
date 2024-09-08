@@ -89,7 +89,7 @@ class Submit implements ActionInterface
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
         if (!$this->request->isPost()) {
-            throw new NotFoundException(__('Not Found.'));
+            throw new NotFoundException(__('Data Not Found.'));
         }
 
         if (!$this->customerSession->isLoggedIn() || !($customerId = $this->customerSession->getCustomerId())) {
@@ -133,7 +133,6 @@ class Submit implements ActionInterface
         $this->eventManager->dispatch('before_create_rent_order_from_cart', [$customerId, $cart]);
 
         $order = $this->createOrder->createOrderFromCart($cart);
-        $orderId = $order->getId();
 
         $order->setHtmlAddress($addressValue);
         $order->setTotalSumm($finalPrice);
@@ -144,7 +143,7 @@ class Submit implements ActionInterface
 
         $this->eventManager->dispatch('after_create_rent_order', ['customer_id' => $customerId, 'order' => $order]);
 
-        $this->messageManager->addSuccessMessage(__("Your order was created (ID: $orderId). You can see your Rent order history in your account."));
+        $this->messageManager->addSuccessMessage(__("Your order was created (ID: ".$order->getId()."). You can see your Rent order history in your account."));
 
         $resultRedirect->setUrl($this->redirect->getRefererUrl());
 

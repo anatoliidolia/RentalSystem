@@ -38,6 +38,7 @@
         <column xsi:type="int" name="total_items" padding="10" nullable="false" default="0" comment="Total Cart Items"/>
         <column xsi:type="text" name="html_address" nullable="true" comment="Html Address"/>
         <column xsi:type="text" name="total_summ" nullable="true" comment="Total Summ"/>
+        <column xsi:type="text" name="status" nullable="true" comment="Order Status"/>
         <column xsi:type="boolean" name="email_sent" nullable="false" default="0" comment="Is Email Sent"/>
         <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
         <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Update Time"/>

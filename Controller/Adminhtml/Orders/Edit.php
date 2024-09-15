@@ -37,6 +37,7 @@ class Edit extends Grid
         $resultPage = $this->resultPageFactory->create();
         $orderId = $this->request->getParam('entity_id');
 
+        // TOD: need to add possibility to update all order info
         $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders - Edit order %1', $orderId)));
 
         return $resultPage;

@@ -15,20 +15,20 @@
              action="rental/orders"
              resource="PeachCode_RentalSystem::rental" />
 
-        <add id="PeachCode_RentalSystem::active_orders"
-             title="Active Orders"
-             module="PeachCode_RentalSystem"
-             sortOrder="25"
-             parent="PeachCode_RentalSystem::rental"
-             action="rental/orders/active"
-             resource="PeachCode_RentalSystem::rental" />
-
         <add id="PeachCode_RentalSystem::pending_orders"
              title="Pending Orders"
              module="PeachCode_RentalSystem"
-             sortOrder="30"
+             sortOrder="25"
              parent="PeachCode_RentalSystem::rental"
              action="rental/orders/pending"
+             resource="PeachCode_RentalSystem::rental" />
+
+        <add id="PeachCode_RentalSystem::active_orders"
+             title="Active Orders"
+             module="PeachCode_RentalSystem"
+             sortOrder="30"
+             parent="PeachCode_RentalSystem::rental"
+             action="rental/orders/active"
              resource="PeachCode_RentalSystem::rental" />
 
         <add id="PeachCode_RentalSystem::closed_orders"

@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface as Logger;
 class ClosedCollection extends SearchResult
 {
     public function __construct(
+        private readonly StatusFilter $statusFilter,
         EntityFactory $entityFactory,
         Logger $logger,
         FetchStrategy $fetchStrategy,
@@ -40,7 +41,9 @@ class ClosedCollection extends SearchResult
     protected function _initSelect()
     {
         parent::_initSelect();
-        $this->addFieldToFilter('status', 'closed');
+        $pendingId = $this->statusFilter->filterStatus('closed');
+
+        $this->addFieldToFilter('status', $pendingId);
         return $this;
     }
 }

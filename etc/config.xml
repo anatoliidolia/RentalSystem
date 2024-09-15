@@ -13,6 +13,7 @@
                 <email_to>test@gmail.com</email_to>
                 <email_sender>test@gmaim.com</email_sender>
                 <email_template>rental_module_template</email_template>
+                <mapper_status>{"_1726409567584_584":{"status_text":"pending","status_id":"1"},"_1726409569689_689":{"status_text":"active","status_id":"2"},"_1726409573228_228":{"status_text":"closed","status_id":"3"}}</mapper_status>
             </module>
             <locations>
                 <is_enabled>0</is_enabled>

@@ -55,10 +55,10 @@ class ActiveActions extends Column
                 ],
                 'update' => [
                     'href'   => $this->context->getUrl(
-                        'rental/orders/edit',
+                        'rental/orders/update',
                         [
                             'entity_id' => $item['order_id'],
-                            'current_status' => 'active'
+                            'current_status' => $item['status'],
                         ]
                     ),
                     'label'  => __('Set To Close'),

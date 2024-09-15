@@ -15,6 +15,7 @@ interface ConfigInterface
     public const XML_RENTAL_EMAIL = 'rental/module/email';
     public const XML_RENT_ORDER_SENDER = 'rental/module/email_sender';
     public const XML_RENT_ORDER_SEND_TO = 'rental/module/email_to';
+    public const XML_RENT_ORDER_STATUS_MAPPER = 'rental/module/mapper_status';
     public const XML_RENT_ORDER_TEMPLATE = 'rental/module/template';
     public const XML_STORE_LOCATOR_STATUS = 'rental/locations/is_enabled';
     public const XML_STORE_LOCATOR_ADDRESS = 'rental/locations/stores';

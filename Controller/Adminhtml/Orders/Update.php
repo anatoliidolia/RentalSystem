@@ -10,6 +10,7 @@ use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Controller\ResultInterface;
 use PeachCode\RentalSystem\Controller\Adminhtml\Grid;
+use PeachCode\RentalSystem\Model\Api\Status\StatusResolverInterface;
 
 class Update extends Grid
 {
@@ -20,6 +21,7 @@ class Update extends Grid
      * @param PageFactory      $resultPageFactory
      */
     public function __construct(
+        private readonly StatusResolverInterface $orderStatusResolver,
         private readonly RequestInterface $request,
         Context $context,
         private readonly PageFactory $resultPageFactory
@@ -35,9 +37,12 @@ class Update extends Grid
     public function execute(): Page|ResultInterface|ResponseInterface
     {
         $resultPage = $this->resultPageFactory->create();
-        $orderId = $this->request->getParam('entity_id');
+        $orderId = (int)$this->request->getParam('entity_id');
+        $currentStatus = (int)$this->request->getParam('current_status');
 
-        $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders - Edit order %1', $orderId)));
+        $this->orderStatusResolver->resolve($orderId, $currentStatus);
+
+        $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders - Update Status order %1', $orderId)));
 
         return $resultPage;
     }

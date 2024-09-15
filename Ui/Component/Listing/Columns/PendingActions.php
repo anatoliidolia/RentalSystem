@@ -58,7 +58,7 @@ class PendingActions extends Column
                         'rental/orders/update',
                         [
                             'entity_id' => $item['order_id'],
-                            'current_status' => 'pending'
+                            'current_status' => $item['status'],
                         ]
                     ),
                     'label'  => __('Set To Active'),

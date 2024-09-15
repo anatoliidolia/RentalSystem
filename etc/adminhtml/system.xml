@@ -50,6 +50,11 @@
                     <comment>Maximum Items in Rental cart.</comment>
                     <validate>validate-number</validate>
                 </field>
+                <field id="mapper_status" translate="label" type="select" sortOrder="6" showInDefault="1">
+                    <label>Order Status Mapper</label>
+                    <frontend_model>PeachCode\RentalSystem\Block\Adminhtml\Menu\Field\StatusMatrix</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
             </group>
             <group id="product" translate="label" type="text" sortOrder="2" showInDefault="1">
                 <label>Product Settings</label>

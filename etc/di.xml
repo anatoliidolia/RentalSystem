@@ -7,6 +7,7 @@
             <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
         </arguments>
     </type>
+
     <type name="PeachCode\RentalSystem\Logger\Logger">
         <arguments>
             <argument name="name" xsi:type="string">rent</argument>
@@ -29,4 +30,7 @@
 
     <preference for="PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface"
                 type="PeachCode\RentalSystem\Model\CartRepository" />
+
+    <preference for="PeachCode\RentalSystem\Model\Api\Status\StatusResolverInterface"
+                type="PeachCode\RentalSystem\Model\Order\Status\StatusResolver" />
 </config>

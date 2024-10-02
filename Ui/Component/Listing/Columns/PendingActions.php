@@ -64,6 +64,17 @@ class PendingActions extends Column
                     'label'  => __('Set To Active'),
                     'hidden' => false,
                 ],
+                'custom_status' => [
+                    'href'   => $this->context->getUrl(
+                        'rental/orders/status',
+                        [
+                            'entity_id' => $item['order_id'],
+                            'current_status' => $item['status'],
+                        ]
+                    ),
+                    'label'  => __('Set Custom Status'),
+                    'hidden' => false,
+                ],
             ];
         }
 

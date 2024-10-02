@@ -5,6 +5,9 @@
             <item name="provider" xsi:type="string">rent_order_custom_status.rent_orders_listing_data_source</item>
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">PeachCode\RentalSystem\Block\Adminhtml\Edit\Button\Save</item>
+        </item>
     </argument>
     <settings>
         <namespace>rent_order_custom_status</namespace>
@@ -43,18 +46,6 @@
                     </settings>
                 </select>
             </formElements>
-        </field>
-        <field name="save_button" sortOrder="50" formElement="button">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="displayAsLink" xsi:type="boolean">false</item>
-                    <item name="title" xsi:type="string" translate="true">Save</item>
-                    <item name="buttonClasses" xsi:type="string">action-primary</item>
-                    <item name="actions" xsi:type="array">
-                        <item name="save" xsi:type="string">save</item>
-                    </item>
-                </item>
-            </argument>
         </field>
     </fieldset>
 </form>

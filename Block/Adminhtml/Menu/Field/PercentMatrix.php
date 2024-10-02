@@ -6,18 +6,12 @@ namespace PeachCode\RentalSystem\Block\Adminhtml\Menu\Field;
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
-use PeachCode\RentalSystem\Block\Adminhtml\Menu\Field\SubTypeColumn;
 
 /**
  * Class Ranges
  */
 class PercentMatrix extends AbstractFieldArray
 {
-
-    /**
-     * @var SubTypeColumn
-     */
-    private SubTypeColumn $subTypeColumn;
 
     /**
      * Prepare rendering the new field by adding all the needed columns
@@ -70,12 +64,10 @@ class PercentMatrix extends AbstractFieldArray
      */
     private function getSubTypeRenderer(): SubTypeColumn
     {
-        $this->subTypeColumn = $this->getLayout()->createBlock(
+        return $this->getLayout()->createBlock(
                 SubTypeColumn::class,
                 '',
                 ['data' => ['is_render_to_js_template' => true]]
         );
-
-        return $this->subTypeColumn;
     }
 }

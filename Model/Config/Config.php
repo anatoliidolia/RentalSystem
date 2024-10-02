@@ -15,8 +15,7 @@ class Config
      */
     public function __construct(
         private readonly ScopeConfigInterface $scopeConfig
-    ) {
-    }
+    ) {}
 
     /**
      * Get custom option
@@ -131,5 +130,15 @@ class Config
     public function getRentOrderEmailSendTo(): mixed
     {
         return $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_SEND_TO, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Get order status mapper
+     *
+     * @return mixed
+     */
+    public function getRentOrderStatusMapper(): mixed
+    {
+        return $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_STATUS_MAPPER, ScopeInterface::SCOPE_WEBSITE);
     }
 }

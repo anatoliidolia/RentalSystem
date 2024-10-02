@@ -17,7 +17,7 @@ use PeachCode\RentalSystem\Model\ResourceModel\Cart\Item\Collection;
 use PeachCode\RentalSystem\Model\ResourceModel\Order\Item\CollectionFactory;
 use PeachCode\RentalSystem\Model\ResourceModel\Order as OrderResource;
 
-class Order extends AbstractModel implements  IdentityInterface
+class Order extends AbstractModel implements IdentityInterface
 {
 
     /**
@@ -63,7 +63,7 @@ class Order extends AbstractModel implements  IdentityInterface
     public function loadById($id): static
     {
         $this->orderResource->load($this, $id);
-        if (! $this->getId()) {
+        if (!$this->getId()) {
             throw new NoSuchEntityException(__('Unable to find rent order with ID "%1"', $id));
         }
         return $this;
@@ -85,7 +85,8 @@ class Order extends AbstractModel implements  IdentityInterface
 
         $this->setCustomerId($customer->getId());
         $this->setCustomerEmail($customer->getEmail());
-
+        // set order status - 1
+        $this->setStatus(1);
 
         $cartItems = $rentCart->getAllItems();
 

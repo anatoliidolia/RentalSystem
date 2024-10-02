@@ -7,6 +7,7 @@
             <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
         </arguments>
     </type>
+
     <type name="PeachCode\RentalSystem\Logger\Logger">
         <arguments>
             <argument name="name" xsi:type="string">rent</argument>
@@ -20,10 +21,16 @@
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="rent_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\Collection</item>
+                <item name="rent_active_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\ActiveCollection</item>
+                <item name="rent_pending_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\PendingCollection</item>
+                <item name="rent_closed_orders_listing_data_source" xsi:type="string">PeachCode\RentalSystem\Model\ResourceModel\Item\Grid\ClosedCollection</item>
             </argument>
         </arguments>
     </type>
 
     <preference for="PeachCode\RentalSystem\Model\Api\ItemRepositoryInterface"
                 type="PeachCode\RentalSystem\Model\CartRepository" />
+
+    <preference for="PeachCode\RentalSystem\Model\Api\Status\StatusResolverInterface"
+                type="PeachCode\RentalSystem\Model\Order\Status\StatusResolver" />
 </config>

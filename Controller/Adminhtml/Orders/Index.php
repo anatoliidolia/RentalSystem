@@ -32,7 +32,7 @@ class Index extends Grid
     public function execute(): Page|ResultInterface|ResponseInterface
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders')));
+        $resultPage->getConfig()->getTitle()->prepend((__('Rental System - All Orders')));
 
         return $resultPage;
     }

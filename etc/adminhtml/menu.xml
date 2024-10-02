@@ -6,17 +6,43 @@
              module="PeachCode_RentalSystem"
              sortOrder="10"
              resource="PeachCode_RentalSystem::rental" />
+
         <add id="PeachCode_RentalSystem::orders"
-             title="Rental System"
+             title="ALL Orders"
              module="PeachCode_RentalSystem"
              sortOrder="20"
              parent="PeachCode_RentalSystem::rental"
              action="rental/orders"
              resource="PeachCode_RentalSystem::rental" />
+
+        <add id="PeachCode_RentalSystem::pending_orders"
+             title="Pending Orders"
+             module="PeachCode_RentalSystem"
+             sortOrder="25"
+             parent="PeachCode_RentalSystem::rental"
+             action="rental/orders/pending"
+             resource="PeachCode_RentalSystem::rental" />
+
+        <add id="PeachCode_RentalSystem::active_orders"
+             title="Active Orders"
+             module="PeachCode_RentalSystem"
+             sortOrder="30"
+             parent="PeachCode_RentalSystem::rental"
+             action="rental/orders/active"
+             resource="PeachCode_RentalSystem::rental" />
+
+        <add id="PeachCode_RentalSystem::closed_orders"
+             title="Closed Orders"
+             module="PeachCode_RentalSystem"
+             sortOrder="35"
+             parent="PeachCode_RentalSystem::rental"
+             action="rental/orders/closed"
+             resource="PeachCode_RentalSystem::rental" />
+
         <add id="PeachCode_RentalSystem::system_config"
              title="Configuration"
              module="PeachCode_RentalSystem"
-             sortOrder="12"
+             sortOrder="45"
              parent="PeachCode_RentalSystem::rental"
              action="adminhtml/system_config/edit/section/rental"
              resource="PeachCode_RentalSystem::system_config" />

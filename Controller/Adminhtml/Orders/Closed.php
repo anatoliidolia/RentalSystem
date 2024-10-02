@@ -4,23 +4,20 @@ declare(strict_types=1);
 namespace PeachCode\RentalSystem\Controller\Adminhtml\Orders;
 
 use Magento\Backend\App\Action\Context;
-use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Controller\ResultInterface;
 use PeachCode\RentalSystem\Controller\Adminhtml\Grid;
 
-class Edit extends Grid
+class Closed extends Grid
 {
 
     /**
-     * @param RequestInterface $request
-     * @param Context          $context
-     * @param PageFactory      $resultPageFactory
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
-        private readonly RequestInterface $request,
         Context $context,
         private readonly PageFactory $resultPageFactory
     ) {
@@ -35,10 +32,7 @@ class Edit extends Grid
     public function execute(): Page|ResultInterface|ResponseInterface
     {
         $resultPage = $this->resultPageFactory->create();
-        $orderId = $this->request->getParam('entity_id');
-
-        // TOD: need to add possibility to update all order info
-        $resultPage->getConfig()->getTitle()->prepend((__('Rental System Orders - Edit order %1', $orderId)));
+        $resultPage->getConfig()->getTitle()->prepend((__('Rental System - Closed Orders')));
 
         return $resultPage;
     }

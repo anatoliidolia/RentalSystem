@@ -75,10 +75,7 @@ Link: `rent/products/allproducts`
 
 <img alt="img_15.png" src="view/frontend/web/images/img_15.png"/>
 <br>
-<br>
-<br>
 - Created custom Indexer for rent Product Only
-<br>
 <br>
 <img alt="img_16.png" src="view/frontend/web/images/img_16.png"/>
 

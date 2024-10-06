@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var $block RentProducts
+ * @var $escaper Escaper
+ */
+
+use PeachCode\RentalSystem\Block\Product\RentProducts;
+use Magento\Framework\Escaper;
+use Magento\Catalog\Model\Product;
+
+$products = $block->getRentProducts();
+if ($products->getSize()): ?>
+    <ul>
+        <?php foreach ($products as /** @var $product Product */ $product):?>
+            <li>
+                <a href="<?= $escaper->escapeHtml($product->getProductUrl()); ?>"><?php echo $escaper->escapeHtml($product->getName()); ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+<?php else: ?>
+    <p><?= $escaper->escapeHtml('No products available for rent.');?></p>
+<?php endif; ?>

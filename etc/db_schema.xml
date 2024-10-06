@@ -71,8 +71,7 @@
         </index>
     </table>
 
-    <!-- General Table !-->
-    <table name="cataloginventory_stock_item" resource="default" engine="innodb" comment="Cataloginventory Stock Item">
+    <table name="cataloginventory_stock_item" resource="default" engine="innodb" comment="Catalog Inventory Stock Item">
         <column xsi:type="decimal" name="quantity_rent" scale="4" precision="12" unsigned="false" nullable="true" comment="Qty"/>
     </table>
 
@@ -81,8 +80,16 @@
          <column xsi:type="decimal" name="quantity_rent" scale="4" precision="12" unsigned="false" nullable="false" default="0"
             comment="Qty"/>
     </table>
+
     <table name="inventory_source_item" resource="default" engine="innodb">
          <column xsi:type="decimal" name="quantity_rent" scale="4" precision="12" unsigned="false" nullable="false"
             default="0"/>
+    </table>
+
+    <table name="rent_product_index" resource="default" engine="innodb" comment="Rent Products Index">
+        <column xsi:type="int" name="product_id" nullable="false" identity="true" comment="Product ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="product_id"/>
+        </constraint>
     </table>
 </schema>

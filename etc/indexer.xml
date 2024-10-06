@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="peach_code_rental_system_indexer" view_id="peach_code_rental_system_indexer" class="PeachCode\RentalSystem\Model\Indexer\ProductIndexer">
+        <title translate="true">Products For Rent</title>
+        <description translate="true">Indexed All Products For Rent</description>
+    </indexer>
+</config>

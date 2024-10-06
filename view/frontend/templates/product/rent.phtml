@@ -1,13 +1,13 @@
 <?php
-/** @var $block AddRent */
-/** @var $escaper Escaper */
+/**
+ * @var $block AddRent
+ * @var $escaper Escaper
+ * */
 
 use PeachCode\RentalSystem\Block\Product\AddRent;
 use Magento\Framework\Escaper;
 
 $product = $block->getProduct();
-
-
 
 if ($block->isRentAvailable($product)) : ?>
 

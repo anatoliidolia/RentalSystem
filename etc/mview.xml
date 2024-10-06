@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="peach_code_rental_system_indexer" class="PeachCode\RentalSystem\Model\Indexer\ProductIndexer" group="indexer">
+        <subscriptions>
+            <table name="catalog_product_entity" entity_column="entity_id" />
+            <table name="catalog_product_entity_int" entity_column="entity_id" />
+        </subscriptions>
+    </view>
+</config>

@@ -67,9 +67,20 @@ We are continuously working to improve PeachCode_RentalSystem. Here are some upc
 1: **Admin Panel:**
 1.1 Allow editing of order details from the admin panel
 
-2: **User:**
-2.1 Allow users to view a page with all products available for rent
-A separate page with all products
+~~2: **User:**~~
+~~2.1 Allow users to view a page with all products available for rent~~
+~~A separate page with all products~~<br>
+
+Link: `rent/products/allproducts`
+
+<img alt="img_15.png" src="view/frontend/web/images/img_15.png"/>
+<br>
+<br>
+<br>
+- Created custom Indexer for rent Product Only
+<br>
+<br>
+<img alt="img_16.png" src="view/frontend/web/images/img_16.png"/>
 
 3: **Customer Data:**
 3.1 Display the rental cart via Private Content

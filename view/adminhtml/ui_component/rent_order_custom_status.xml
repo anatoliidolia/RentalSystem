@@ -2,15 +2,18 @@
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">rent_order_edit.rent_orders_listing_data_source</item>
+            <item name="provider" xsi:type="string">rent_order_custom_status.rent_orders_listing_data_source</item>
         </item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">PeachCode\RentalSystem\Block\Adminhtml\Edit\Button\Save</item>
+        </item>
     </argument>
     <settings>
-        <namespace>rent_order_edit</namespace>
+        <namespace>rent_order_custom_status</namespace>
         <dataScope>data</dataScope>
         <deps>
-            <dep>rent_order_edit.rent_orders_listing_data_source</dep>
+            <dep>rent_order_custom_status.rent_orders_listing_data_source</dep>
         </deps>
     </settings>
     <dataSource name="rent_orders_listing_data_source">
@@ -28,26 +31,21 @@
     </dataSource>
     <fieldset name="general">
         <settings>
-            <label/>
+            <label translate="true">Rental System - Set Custom Status</label>
         </settings>
-        <field name="customer_id" sortOrder="30" formElement="input">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Customer Id</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="source" xsi:type="string">customer_id</item>
-                    <item name="dataScope" xsi:type="string">customer_id</item>
-                </item>
-            </argument>
+        <field name="order_status" component="Magento_Ui/js/form/element/select" formElement="select">
             <settings>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">false</rule>
-                </validation>
                 <dataType>text</dataType>
-                <label translate="true">Customer Id</label>
-                <dataScope>customer_id</dataScope>
+                <label translate="true">Order Status</label>
+                <dataScope>order_status</dataScope>
             </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="PeachCode\RentalSystem\Model\Order\Status\StatusDropdown"/>
+                    </settings>
+                </select>
+            </formElements>
         </field>
     </fieldset>
 </form>

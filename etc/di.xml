@@ -33,4 +33,7 @@
 
     <preference for="PeachCode\RentalSystem\Model\Api\Status\StatusResolverInterface"
                 type="PeachCode\RentalSystem\Model\Order\Status\StatusResolver" />
+
+    <preference for="PeachCode\RentalSystem\Api\Data\StatusInterface"
+                type="PeachCode\RentalSystem\Model\Order\Status\StatusDropdown"/>
 </config>

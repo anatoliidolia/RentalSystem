@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PeachCode\RentalSystem\Model\Config;
 
+use Magento\Framework\Serialize\SerializerInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use PeachCode\RentalSystem\Model\Api\ConfigInterface;
@@ -14,7 +15,8 @@ class Config
      * @param ScopeConfigInterface $scopeConfig
      */
     public function __construct(
-        private readonly ScopeConfigInterface $scopeConfig
+        private readonly ScopeConfigInterface $scopeConfig,
+        private readonly SerializerInterface $serializer
     ) {}
 
     /**
@@ -140,5 +142,33 @@ class Config
     public function getRentOrderStatusMapper(): mixed
     {
         return $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_STATUS_MAPPER, ScopeInterface::SCOPE_WEBSITE);
+    }
+
+    /**
+     * Get order status mapper
+     *
+     * @return mixed
+     */
+    /**
+     * Get order status mapper
+     *
+     * @return array
+     */
+    public function getRentOrderStatusMapperArray(): array
+    {
+        $configData = $this->scopeConfig->getValue(ConfigInterface::XML_RENT_ORDER_STATUS_MAPPER, ScopeInterface::SCOPE_WEBSITE);
+
+        $configArray = $this->serializer->unserialize($configData);
+
+        $options = [];
+
+        foreach ($configArray as $value) {
+            $options[] = [
+                'value' => $value['status_id'],
+                'label' => $value['status_text']
+            ];
+        }
+
+        return $options;
     }
 }

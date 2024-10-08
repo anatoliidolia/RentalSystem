@@ -1,0 +1,65 @@
+<?php
+/**
+ * @var $block AddRent
+ * @var $escaper Escaper
+ * */
+
+use PeachCode\RentalSystem\Block\Product\AddRent;
+use Magento\Framework\Escaper;
+
+$product = $block->getProduct();
+
+if ($block->isRentAvailable($product)) : ?>
+
+    <form class="form form-rent"
+          action="<?= $escaper->escapeHtml($block->getAddRentUrl()); ?>"
+          method="POST" id="form-validate"
+          enctype="multipart/form-data" autocomplete="off">
+        <?= $block->getBlockHtml('formkey') ?>
+
+        <?php if($block->isSourcesEnabled()):?>
+        <label for="source_value"><p class="sources-list"><?= $escaper->escapeHtml(__('Available Sources'))?></p></label>
+        <select id="available_source" name="available_source">
+        <?php foreach ($block->getAllProductSources($product->getSku()) as $source) :?>
+            <option value="<?= $escaper->escapeHtml($source['source_code']);?>"><?= $escaper->escapeHtml($source['source_code'])?></option>
+        <?php endforeach;?>
+         </select>
+        <?php endif;?>
+
+        <label for="rent_price"><?= $escaper->escapeHtml(__('Rent Price per day: ')); ?><?= $block->getRentPrice($product); ?></label>
+        <br>
+        <label for="rent_product_id"></label>
+        <p class="start-date">
+            <label><?= $escaper->escapeHtml(__('Start Date :')); ?> </label>
+            <input type="text" class="input-text data-picker" id="start_date"
+                   style="width: auto" name="start_date"/>
+        </p>
+        <p class="end-date">
+            <label><?= $escaper->escapeHtml(__('End Date : ')); ?></label>
+            <input type="text" class="input-text data-picker" id="end_date"
+                   style="width: auto" name="end_date"/>
+        </p>
+
+        <button class="action primary rentbutton" type="submit"
+                title="<?= $escaper->escapeHtml(__('Add to Rent Cart')); ?>">
+            <span><?= $escaper->escapeHtml(__('Rent Product')); ?></span>
+        </button>
+    </form>
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "calendar" : {}
+        }
+    }
+    </script>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "PeachCode_RentalSystem/js/configurable_product_rent" : {
+                    "product_id" : "<?= $escaper->escapeHtml($block->getProduct()->getId()) ?>"
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>

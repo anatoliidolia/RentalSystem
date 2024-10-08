@@ -2,11 +2,24 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceContainer name="product.info.main">
+        <!-- For simple product-->
+        <referenceContainer name="product.info.form.content">
             <block class="PeachCode\RentalSystem\Block\Product\AddRent"
                    name="product.info.rent"
-                   template="product/rent.phtml"
-                   after="product.info.rent"/>
+                   ifconfig="rental/module/enabled"
+                   template="product/rent_simple.phtml"
+                   after="product.info.rent"
+            />
         </referenceContainer>
+
+        <!-- For config products -->
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="PeachCode\RentalSystem\Block\Product\AddRent"
+                   name="product.info.rent.wrapper"
+                   ifconfig="rental/module/enabled"
+                   template="product/rent_configurable.phtml"
+                   after="product.info.rent"
+            />
+        </referenceBlock>
     </body>
 </page>
